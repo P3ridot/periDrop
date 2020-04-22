@@ -1,0 +1,151 @@
+drops:
+  emerald:
+    item:
+      material: emerald
+    displayname: "&2Szmaragd"
+    amount: 1-2
+    chance: 10
+    height: 4-32
+    biomes:
+      - EXTREME_HILLS_PLUS_MOUNTAINS
+      - EXTREME_HILLS_MOUNTAINS
+    tools:
+      - diamond_pickaxe
+      - iron_pickaxe
+    fortune:
+    message:
+      chat:
+        enabled: true
+        content: "&8» &7Wydropil ci &2Szmaragd&7!"
+  diamond:
+    item:
+      material: diamond
+    displayname: "&bDiament"
+    amount: 1-2
+    chance: 10
+    height: 1-16
+    biomes: []
+    tools:
+      - diamond_pickaxe
+      - iron_pickaxe
+    fortune:
+    message:
+      chat:
+        enabled: true
+        content: "&8» &7Wydropil ci &bDiament&7!"
+  gold_ingot:
+    item:
+      material: gold_ingot
+    displayname: "&6Sztabka Zlota"
+    amount: 1-2
+    chance: 10
+    height: 1-31
+    biomes: []
+    tools: []
+    fortune:
+      1:
+        chance: 15
+        amount: 5-10
+      2:
+        chance: 20
+        amount: 5-10
+      3:
+        chance: 25
+        amount: 5-10
+    message:
+      chat:
+        enabled: true
+        content: "&8» &7Wydropila ci &6Sztabka Zlota&7!"
+  iron_ingot:
+    item:
+      material: iron_ingot
+    displayname: "&7Sztabka Zelaza"
+    amount: 1-2
+    chance: 10
+    height: 1-64
+    biomes: []
+    tools: []
+    fortune:
+      1:
+        chance: 15
+        amount: 5-10
+      2:
+        chance: 20
+        amount: 5-10
+      3:
+        chance: 25
+        amount: 5-10
+    message:
+      chat:
+        enabled: true
+        content: "&8» &7Wydropil ci &7Sztabka Zelaza&7!"
+  redstone:
+    item:
+      material: redstone
+    displayname: "&cCzerwony Proch"
+    amount: 1-2
+    chance: 10
+    height: 1-15
+    biomes: []
+    tools: []
+    fortune:
+      1:
+        chance: 15
+        amount: 5-10
+      2:
+        chance: 20
+        amount: 5-10
+      3:
+        chance: 25
+        amount: 5-10
+    message:
+      chat:
+        enabled: true
+        content: "&8» &7Wydropil ci &cCzerwony Proch&7!"
+  lapis:
+    item:
+      material: INK_SACK
+      durability: 4
+    displayname: "&1Lapis"
+    amount: 1-2
+    chance: 10
+    height: 1-30
+    biomes: []
+    tools: []
+    fortune:
+      1:
+        chance: 15
+        amount: 5-10
+      2:
+        chance: 20
+        amount: 5-10
+      3:
+        chance: 25
+        amount: 5-10
+    message:
+      chat:
+        enabled: true
+        content: "&8» &7Wydropil ci &1Lapis&7!"
+  coal:
+    item:
+      material: coal
+    displayname: "&8Wegiel"
+    amount: 1-2
+    chance: 10
+    height: 1-126
+    biomes: []
+    tools: []
+    fortune:
+      1:
+        chance: 15
+        amount: 5-10
+      2:
+        chance: 20
+        amount: 5-10
+      3:
+        chance: 25
+        amount: 5-10
+    message:
+      chat:
+        enabled: true
+        content: "&8» &7Wydropil ci &8Wegiel&7!"

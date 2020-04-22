@@ -1,0 +1,55 @@
+messages:
+  errors:
+    noplayer.content: "&3periDrop &8» &7Tylko gracz moze uzyc tej komendy!"
+    noperm:
+      chat:
+        send-if-not-player: true
+        content: "&3periDrop &8» &7Nie posiadasz uprawnienia &9{PERMISSION}&7!"
+      title:
+        enabled: true
+        content: "&8» &c&lBlad"
+        sub-content: "&7Nie posiadasz uprawnien ({PERMISSION})"
+        fade-in: 10
+        stay: 40
+        fade-out: 10
+    blocked-drop:
+      silktouch:
+        actionbar:
+          enabled: true
+          content: "&8» &7Ten blok mozesz wydobyc tylko z silktouchem!"
+      not-silktouch:
+        actionbar:
+          enabled: true
+          content: "&8» &7Tego bloku nie mozesz wydobyc!"
+  admindrop:
+    help:
+      chat:
+        enabled: true
+        content:
+          - "&8----------------------------------------------------"
+          - " &8» &3/{LABEL} reload &8- &7przeladowuje plugin"
+          - " &8» &3/{LABEL} ranking-update &8- &7przeladowuje caly ranking"
+          - "&8----------------------------------------------------"
+    configuration_reloaded:
+      chat:
+        send-if-not-player: true
+        content: "&3periDrop &8» &7Plugin zostal przeladowany!"
+      actionbar:
+        enabled: true
+        content: "&3periDrop &8» &7Plugin zostal przeladowany!"
+    ranking_update:
+      chat:
+        send-if-not-player: true
+        content: "&3periDrop &8» &7Ranking zostal przeladowany!"
+      actionbar:
+        enabled: true
+        content: "&3periDrop &8» &7Ranking zostal przeladowany!"
+  ranking:
+    level-up:
+      title:
+        enabled: true
+        content: "&c{OLD-LEVEL} &8» &a{NEW-LEVEL}"
+        sub-content: "&7Do nastepnego poziomu potrzeba: &3{EXP-TO-NEXT-LEVEL}xp"
+        fade-in: 10
+        stay: 40
+        fade-out: 10

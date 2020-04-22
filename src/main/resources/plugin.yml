@@ -1,0 +1,12 @@
+name: periDrop
+author: Peridot
+version: 1.0
+main: me.peridot.peridrop.PeriDrop
+website: mlgroup.pl
+
+commands:
+  drop:
+    aliases: [drops]
+    description: Show drops from stone
+  admindrop:
+    aliases: [ad]
