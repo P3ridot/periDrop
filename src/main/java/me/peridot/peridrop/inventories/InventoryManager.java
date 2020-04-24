@@ -3,6 +3,7 @@ package me.peridot.peridrop.inventories;
 import api.peridot.periapi.inventories.CustomInventory;
 import api.peridot.periapi.inventories.PeriInventoryManager;
 import me.peridot.peridrop.PeriDrop;
+import me.peridot.peridrop.data.configuration.PluginConfiguration;
 
 public class InventoryManager {
 
@@ -18,12 +19,14 @@ public class InventoryManager {
         this.plugin = plugin;
         this.manager = plugin.getPeriAPI().getInventoryManager();
 
+        PluginConfiguration config = plugin.getConfigurations().getPluginConfiguration();
+
         menuInventory = CustomInventory.builder()
                 .plugin(plugin)
                 .manager(manager)
                 .provider(new MenuInventory(plugin))
-                .rows(plugin.getConfigurations().getPluginConfiguration().getInt("inventories.menu.size"))
-                .title(plugin.getConfigurations().getPluginConfiguration().getColoredString("inventories.menu.title"))
+                .rows(config.getInt("inventories.menu.size"))
+                .title(config.getColoredString("inventories.menu.title"))
                 .updateDelay(-1)
                 .build();
 
@@ -36,7 +39,7 @@ public class InventoryManager {
                 .manager(manager)
                 .provider(new DropInventory(plugin, drop_inventory_rows))
                 .rows(drop_inventory_rows)
-                .title(plugin.getConfigurations().getPluginConfiguration().getColoredString("inventories.drop.title"))
+                .title(config.getColoredString("inventories.drop.title"))
                 .updateDelay(20)
                 .build();
 
@@ -45,7 +48,7 @@ public class InventoryManager {
                 .manager(manager)
                 .provider(new SettingsInventory(plugin))
                 .rows(2)
-                .title(plugin.getConfigurations().getPluginConfiguration().getColoredString("inventories.settings.title"))
+                .title(config.getColoredString("inventories.settings.title"))
                 .updateDelay(20)
                 .build();
 
@@ -54,7 +57,7 @@ public class InventoryManager {
                 .manager(manager)
                 .provider(new RankingInventory(plugin))
                 .rows(6)
-                .title(plugin.getConfigurations().getPluginConfiguration().getColoredString("inventories.ranking.title"))
+                .title(config.getColoredString("inventories.ranking.title"))
                 .updateDelay(-1)
                 .build();
     }

@@ -85,7 +85,7 @@ public class ConfigurationManager {
         return messagesConfiguration;
     }
 
-    public LangAPI getLangApi() {
+    public LangAPI getLangAPI() {
         if (langApi == null) {
             try {
                 reloadConfigurations();

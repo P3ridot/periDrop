@@ -26,9 +26,11 @@ public class FortuneInventory implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContent content) {
+        PluginConfiguration config = plugin.getConfigurations().getPluginConfiguration();
+
         content.clear();
         for (FortuneDrop fortuneDrop : drop.getFortuneDropsList()) {
-            ItemBuilder item = plugin.getConfigurations().getPluginConfiguration().getItemBuilder("inventories.fortune.buttons.fortune").clone();
+            ItemBuilder item = config.getItemBuilder("inventories.fortune.buttons.fortune").clone();
             item.replaceInName(new Replacement("{FORTUNE-LEVEL}", Integer.valueOf(fortuneDrop.getFortuneLevel()).toString()),
                     new Replacement("{CHANCE}", PluginConfiguration.decimalFormat.format(fortuneDrop.getChance() * 100F)),
                     new Replacement("{OLD-CHANCE}", PluginConfiguration.decimalFormat.format(drop.getChance() * 100F)),
@@ -50,16 +52,16 @@ public class FortuneInventory implements InventoryProvider {
                     new Replacement("{DIFFERENCE-MIN-AMOUNT}", Integer.valueOf(Math.abs(fortuneDrop.getMinAmount() - drop.getMinAmount())).toString()),
                     new Replacement("{DIFFERENCE-MAX-AMOUNT}", Integer.valueOf(Math.abs(fortuneDrop.getMaxAmount() - drop.getMaxAmount())).toString()));
 
-            if (plugin.getConfigurations().getPluginConfiguration().getBoolean("inventories.fortune.buttons.fortune.enchant_with_fortune")) {
+            if (config.getBoolean("inventories.fortune.buttons.fortune.enchant_with_fortune")) {
                 item.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, fortuneDrop.getFortuneLevel());
             }
             content.addItem(InventoryItem.builder()
                     .item(item.build())
                     .build());
         }
-        content.fillRow(rows, InventoryItem.builder().item(plugin.getConfigurations().getPluginConfiguration().getItemBuilder("inventories.fortune.buttons.background").clone()).build());
+        content.fillRow(rows, InventoryItem.builder().item(config.getItemBuilder("inventories.fortune.buttons.background").clone()).build());
         content.setItem(rows, 5, InventoryItem.builder()
-                .item(plugin.getConfigurations().getPluginConfiguration().getItemBuilder("inventories.fortune.buttons.back").clone().build())
+                .item(config.getItemBuilder("inventories.fortune.buttons.back").clone().build())
                 .consumer(event -> plugin.getInventoryManager().getDropInventory().open(player))
                 .build());
     }

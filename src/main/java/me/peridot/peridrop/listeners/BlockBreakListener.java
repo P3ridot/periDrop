@@ -1,5 +1,6 @@
 package me.peridot.peridrop.listeners;
 
+import api.peridot.periapi.configuration.langapi.LangAPI;
 import api.peridot.periapi.configuration.langapi.Replacement;
 import api.peridot.periapi.utils.Pair;
 import api.peridot.periapi.utils.Sounds;
@@ -40,7 +41,9 @@ public class BlockBreakListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
         ConfigurationManager dataManager = plugin.getConfigurations();
+        PluginConfiguration config = dataManager.getPluginConfiguration();
         DropManager dropManager = dataManager.getDropManager();
+        LangAPI langAPI = dataManager.getLangAPI();
 
         Player player = event.getPlayer();
         User user = plugin.getUserManager().createUser(player);
@@ -52,9 +55,9 @@ public class BlockBreakListener implements Listener {
         if (PluginConfiguration.blockedDropsMap.containsKey(block.getType())) {
             if (PluginConfiguration.blockedDropsMap.get(block.getType())) {
                 if (tool.getEnchantmentLevel(Enchantment.SILK_TOUCH) >= 1) return;
-                dataManager.getLangApi().sendMessage(player, "errors.blocked-drop.silktouch", new Replacement("{BLOCK}", block.getType().name().toUpperCase()));
+                langAPI.sendMessage(player, "errors.blocked-drop.silktouch", new Replacement("{BLOCK}", block.getType().name().toUpperCase()));
             } else {
-                dataManager.getLangApi().sendMessage(player, "errors.blocked-drop.not-silktouch", new Replacement("{BLOCK}", block.getType().name().toUpperCase()));
+                langAPI.sendMessage(player, "errors.blocked-drop.not-silktouch", new Replacement("{BLOCK}", block.getType().name().toUpperCase()));
             }
             block.setType(Material.AIR);
             event.setCancelled(true);
@@ -81,13 +84,13 @@ public class BlockBreakListener implements Listener {
             recalculateDurability(player, tool);
         }
 
-        rank.changeXp(ThreadLocalRandom.current().nextInt(plugin.getConfigurations().getPluginConfiguration().getInt("ranking.drop-exp.min"), plugin.getConfigurations().getPluginConfiguration().getInt("ranking.drop-exp.max") + 1));
+        rank.changeXp(ThreadLocalRandom.current().nextInt(config.getInt("ranking.drop-exp.min"), config.getInt("ranking.drop-exp.max") + 1));
         if (rank.getXp() >= requiredExp(rank.getLevel() + 1, rank)) {
             rank.changeXp(-requiredExp(rank.getLevel() + 1, rank));
             if (rank.getXp() < 0) rank.setXp(0);
             rank.changeLevel(1);
             if (!user.isSettingDisabled(SettingsType.LEVEL_UP_NOTIFICATION)) {
-                dataManager.getLangApi().sendMessage(player, "ranking.level-up", new Replacement("{OLD-LEVEL}", Integer.valueOf(rank.getLevel() - 1).toString()),
+                langAPI.sendMessage(player, "ranking.level-up", new Replacement("{OLD-LEVEL}", Integer.valueOf(rank.getLevel() - 1).toString()),
                         new Replacement("{NEW-LEVEL}", Integer.valueOf(rank.getLevel()).toString()),
                         new Replacement("{NEXT-LEVEL}", Integer.valueOf(rank.getLevel() + 1).toString()),
                         new Replacement("{EXP-TO-NEXT-LEVEL}", Integer.valueOf(requiredExp(rank.getLevel() + 1, rank)).toString()));

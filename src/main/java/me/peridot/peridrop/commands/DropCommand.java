@@ -21,7 +21,7 @@ public class DropCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         ConfigurationManager dataManager = plugin.getConfigurations();
-        LangAPI langAPI = dataManager.getLangApi();
+        LangAPI langAPI = dataManager.getLangAPI();
         if (!(sender instanceof Player)) {
             langAPI.sendSimpleMessage(sender, "errors.noplayer");
             return true;

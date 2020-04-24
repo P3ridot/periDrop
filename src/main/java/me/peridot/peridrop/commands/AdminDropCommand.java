@@ -23,7 +23,7 @@ public class AdminDropCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         ConfigurationManager dataManager = plugin.getConfigurations();
-        LangAPI langAPI = dataManager.getLangApi();
+        LangAPI langAPI = dataManager.getLangAPI();
         if (!sender.hasPermission("peridrop.cmd.admindrop")) {
             langAPI.sendMessage(sender, "errors.noperm", new Replacement("{PERMISSION}", "peridrop.cmd.admindrop"));
             return true;
