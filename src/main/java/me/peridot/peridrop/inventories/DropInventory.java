@@ -1,11 +1,11 @@
 package me.peridot.peridrop.inventories;
 
+import api.peridot.periapi.configuration.langapi.Replacement;
 import api.peridot.periapi.inventories.CustomInventory;
 import api.peridot.periapi.inventories.InventoryContent;
 import api.peridot.periapi.inventories.items.InventoryItem;
 import api.peridot.periapi.inventories.providers.InventoryProvider;
 import api.peridot.periapi.items.ItemBuilder;
-import api.peridot.periapi.langapi.Replacement;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.data.configuration.PluginConfiguration;
 import me.peridot.peridrop.drop.Drop;
@@ -30,14 +30,14 @@ public class DropInventory implements InventoryProvider {
     @Override
     public void init(Player player, InventoryContent content) {
         User user = plugin.getUserManager().createUser(player);
-        DropManager dropManager = plugin.getConfigurationManager().getDropManager();
+        DropManager dropManager = plugin.getConfigurations().getDropManager();
 
         content.clear();
         for (Drop drop : dropManager.getDropsList()) {
             boolean disabled = user.isDropDisabled(drop);
-            String status = disabled ? PluginConfiguration.drop_status_disabled : PluginConfiguration.drop_status_enabled;
-            String fortune_status = drop.isFortuneAffect() ? PluginConfiguration.fortune_enabled : PluginConfiguration.fortune_disabled;
-            List<String> lore = drop.isFortuneAffect() ? PluginConfiguration.drop_toogle_drop_with_fortune_lore : PluginConfiguration.drop_toogle_drop_without_fortune_lore;
+            String status = disabled ? plugin.getConfigurations().getPluginConfiguration().getColoredString("messages.drop_status.enabled") : plugin.getConfigurations().getPluginConfiguration().getColoredString("messages.drop_status.disabled");
+            String fortune_status = drop.isFortuneAffect() ? plugin.getConfigurations().getPluginConfiguration().getColoredString("messages.fortune.enabled") : plugin.getConfigurations().getPluginConfiguration().getColoredString("messages.fortune.disabled");
+            List<String> lore = drop.isFortuneAffect() ? plugin.getConfigurations().getPluginConfiguration().getColoredStringList("inventories.drop.buttons.drop_toogle.with_fortune.lore") : plugin.getConfigurations().getPluginConfiguration().getColoredStringList("inventories.drop.buttons.drop_toogle.without_fortune.lore");
             content.addItem(InventoryItem.builder()
                     .item(new ItemBuilder(drop.getMaterial(), 1, drop.getDurability())
                             .setName(drop.getDisplayName())
@@ -59,10 +59,10 @@ public class DropInventory implements InventoryProvider {
                             }
                             CustomInventory fortuneInventory = CustomInventory.builder()
                                     .plugin(plugin)
-                                    .manager(plugin.getPeriApi().getInventoryManager())
+                                    .manager(plugin.getPeriAPI().getInventoryManager())
                                     .provider(new FortuneInventory(plugin, rows, drop))
                                     .rows(rows)
-                                    .title(PluginConfiguration.fortune_title)
+                                    .title(plugin.getConfigurations().getPluginConfiguration().getColoredString("inventories.fortune.title"))
                                     .updateDelay(-1)
                                     .build();
                             fortuneInventory.open(player);
@@ -73,9 +73,9 @@ public class DropInventory implements InventoryProvider {
                     .update(true)
                     .build());
         }
-        content.fillRow(rows, InventoryItem.builder().item(PluginConfiguration.drop_background_item.clone()).build());
+        content.fillRow(rows, InventoryItem.builder().item(plugin.getConfigurations().getPluginConfiguration().getItemBuilder("inventories.drop.buttons.background").clone()).build());
         content.setItem(rows, 4, InventoryItem.builder()
-                .item(PluginConfiguration.drop_all_enable_item.clone())
+                .item(plugin.getConfigurations().getPluginConfiguration().getItemBuilder("inventories.drop.buttons.all_enable").clone())
                 .consumer(event -> {
                     for (Drop drop : dropManager.getDropsList()) {
                         user.setDropDisabled(drop, false);
@@ -84,7 +84,7 @@ public class DropInventory implements InventoryProvider {
                 .update(true)
                 .build());
         content.setItem(rows, 6, InventoryItem.builder()
-                .item(PluginConfiguration.drop_all_disable_item.clone())
+                .item(plugin.getConfigurations().getPluginConfiguration().getItemBuilder("inventories.drop.buttons.all_disable").clone())
                 .consumer(event -> {
                     for (Drop drop : dropManager.getDropsList()) {
                         user.setDropDisabled(drop, true);
@@ -93,7 +93,7 @@ public class DropInventory implements InventoryProvider {
                 .update(true)
                 .build());
         content.setItem(rows, 9, InventoryItem.builder()
-                .item(PluginConfiguration.drop_back_item.clone())
+                .item(plugin.getConfigurations().getPluginConfiguration().getItemBuilder("inventories.drop.buttons.back").clone())
                 .consumer(event -> plugin.getInventoryManager().getMenuInventory().open(player))
                 .build());
     }

@@ -26,14 +26,13 @@ public class PeriDrop extends JavaPlugin {
     private DatabaseManager databaseManager;
     private UserManager userManager;
     private RankManager rankManager;
-    private PeriAPI periApi;
+    private PeriAPI periAPI;
     private InventoryManager inventoryManager;
 
     @Override
     public void onEnable() {
         configurationManager = new ConfigurationManager(this);
         try {
-            saveDefaultConfig();
             configurationManager.reloadConfigurations();
         } catch (InvalidConfigurationException ex) {
             ex.printStackTrace();
@@ -51,10 +50,10 @@ public class PeriDrop extends JavaPlugin {
         pluginManager.registerEvents(new PlayerJoinListener(this), this);
         pluginManager.registerEvents(new PlayerQuitListener(this), this);
 
-        periApi = new PeriAPI(this);
-        periApi.init();
+        periAPI = new PeriAPI(this);
+        periAPI.init();
 
-        inventoryManager = new InventoryManager(this);
+        initInventoryManager();
 
         new AdminDropCommand(this).registerCommand();
         new DropCommand(this).registerCommand();
@@ -71,7 +70,7 @@ public class PeriDrop extends JavaPlugin {
         }
     }
 
-    public ConfigurationManager getConfigurationManager() {
+    public ConfigurationManager getConfigurations() {
         return configurationManager;
     }
 
@@ -87,11 +86,15 @@ public class PeriDrop extends JavaPlugin {
         return rankManager;
     }
 
-    public PeriAPI getPeriApi() {
-        return periApi;
+    public PeriAPI getPeriAPI() {
+        return periAPI;
     }
 
     public InventoryManager getInventoryManager() {
         return inventoryManager;
+    }
+
+    public void initInventoryManager() {
+        this.inventoryManager = new InventoryManager(this);
     }
 }

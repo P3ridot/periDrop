@@ -22,7 +22,7 @@ repositories {
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT"
     compile "com.zaxxer:HikariCP:3.4.1"
-    compile "com.github.P3ridot:periApi:38805b6ddb"
+    compile "com.github.P3ridot:periApi:53c46a0781"
     compile 'com.github.WesJD:AnvilGUI:master-SNAPSHOT'
     compile "com.udojava:EvalEx:2.1"
 }

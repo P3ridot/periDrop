@@ -1,6 +1,6 @@
 package me.peridot.peridrop.listeners;
 
-import api.peridot.periapi.langapi.Replacement;
+import api.peridot.periapi.configuration.langapi.Replacement;
 import api.peridot.periapi.utils.Pair;
 import api.peridot.periapi.utils.Sounds;
 import com.udojava.evalex.Expression;
@@ -39,7 +39,7 @@ public class BlockBreakListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        ConfigurationManager dataManager = plugin.getConfigurationManager();
+        ConfigurationManager dataManager = plugin.getConfigurations();
         DropManager dropManager = dataManager.getDropManager();
 
         Player player = event.getPlayer();
@@ -81,7 +81,7 @@ public class BlockBreakListener implements Listener {
             recalculateDurability(player, tool);
         }
 
-        rank.changeXp(ThreadLocalRandom.current().nextInt(PluginConfiguration.ranking_drop_min_exp, PluginConfiguration.ranking_drop_max_exp + 1));
+        rank.changeXp(ThreadLocalRandom.current().nextInt(plugin.getConfigurations().getPluginConfiguration().getInt("ranking.drop-exp.min"), plugin.getConfigurations().getPluginConfiguration().getInt("ranking.drop-exp.max") + 1));
         if (rank.getXp() >= requiredExp(rank.getLevel() + 1, rank)) {
             rank.changeXp(-requiredExp(rank.getLevel() + 1, rank));
             if (rank.getXp() < 0) rank.setXp(0);
@@ -147,7 +147,7 @@ public class BlockBreakListener implements Listener {
     }
 
     private int requiredExp(int level, Rank rank) {
-        Expression expression = new Expression(PluginConfiguration.ranking_required_exp_formula);
+        Expression expression = new Expression(plugin.getConfigurations().getPluginConfiguration().getString("ranking.level-up.required-exp"));
 
         expression.with("level", new BigDecimal(level));
         expression.with("player_position", new BigDecimal(rank.getPosition()));

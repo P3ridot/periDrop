@@ -18,7 +18,7 @@ public class DropManager {
     }
 
     public void loadDrops() throws InvalidConfigurationException {
-        DropConfiguration dropConfiguration = plugin.getConfigurationManager().getDropConfiguration();
+        DropConfiguration dropConfiguration = plugin.getConfigurations().getDropConfiguration();
         DropParser dropParser = new DropParser(plugin);
 
         dropsList = dropParser.parseDrops(dropConfiguration.getYamlConfiguration().getConfigurationSection("drops"));

@@ -1,10 +1,10 @@
 package me.peridot.peridrop.inventories;
 
+import api.peridot.periapi.configuration.langapi.Replacement;
 import api.peridot.periapi.inventories.InventoryContent;
 import api.peridot.periapi.inventories.items.InventoryItem;
 import api.peridot.periapi.inventories.providers.InventoryProvider;
 import api.peridot.periapi.items.ItemBuilder;
-import api.peridot.periapi.langapi.Replacement;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.data.configuration.PluginConfiguration;
 import me.peridot.peridrop.drop.Drop;
@@ -28,7 +28,7 @@ public class FortuneInventory implements InventoryProvider {
     public void init(Player player, InventoryContent content) {
         content.clear();
         for (FortuneDrop fortuneDrop : drop.getFortuneDropsList()) {
-            ItemBuilder item = PluginConfiguration.fortune_item.clone();
+            ItemBuilder item = plugin.getConfigurations().getPluginConfiguration().getItemBuilder("inventories.fortune.buttons.fortune").clone();
             item.replaceInName(new Replacement("{FORTUNE-LEVEL}", Integer.valueOf(fortuneDrop.getFortuneLevel()).toString()),
                     new Replacement("{CHANCE}", PluginConfiguration.decimalFormat.format(fortuneDrop.getChance() * 100F)),
                     new Replacement("{OLD-CHANCE}", PluginConfiguration.decimalFormat.format(drop.getChance() * 100F)),
@@ -50,16 +50,16 @@ public class FortuneInventory implements InventoryProvider {
                     new Replacement("{DIFFERENCE-MIN-AMOUNT}", Integer.valueOf(Math.abs(fortuneDrop.getMinAmount() - drop.getMinAmount())).toString()),
                     new Replacement("{DIFFERENCE-MAX-AMOUNT}", Integer.valueOf(Math.abs(fortuneDrop.getMaxAmount() - drop.getMaxAmount())).toString()));
 
-            if (PluginConfiguration.fortune_enchant_with_fortune) {
+            if (plugin.getConfigurations().getPluginConfiguration().getBoolean("inventories.fortune.buttons.fortune.enchant_with_fortune")) {
                 item.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, fortuneDrop.getFortuneLevel());
             }
             content.addItem(InventoryItem.builder()
                     .item(item.build())
                     .build());
         }
-        content.fillRow(rows, InventoryItem.builder().item(PluginConfiguration.drop_background_item.clone()).build());
+        content.fillRow(rows, InventoryItem.builder().item(plugin.getConfigurations().getPluginConfiguration().getItemBuilder("inventories.fortune.buttons.background").clone()).build());
         content.setItem(rows, 5, InventoryItem.builder()
-                .item(PluginConfiguration.fortune_back_item.clone().build())
+                .item(plugin.getConfigurations().getPluginConfiguration().getItemBuilder("inventories.fortune.buttons.back").clone().build())
                 .consumer(event -> plugin.getInventoryManager().getDropInventory().open(player))
                 .build());
     }

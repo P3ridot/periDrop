@@ -1,7 +1,7 @@
 package me.peridot.peridrop.drop;
 
+import api.peridot.periapi.configuration.langapi.LangMessage;
 import api.peridot.periapi.items.ItemBuilder;
-import api.peridot.periapi.langapi.LangMessage;
 import api.peridot.periapi.utils.Pair;
 import jdk.nashorn.internal.objects.annotations.Getter;
 import me.peridot.peridrop.data.configuration.PluginConfiguration;

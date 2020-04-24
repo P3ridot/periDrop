@@ -1,7 +1,7 @@
 package me.peridot.peridrop.commands;
 
-import api.peridot.periapi.langapi.LangAPI;
-import api.peridot.periapi.langapi.Replacement;
+import api.peridot.periapi.configuration.langapi.LangAPI;
+import api.peridot.periapi.configuration.langapi.Replacement;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.data.configuration.ConfigurationManager;
 import org.bukkit.command.*;
@@ -22,7 +22,7 @@ public class AdminDropCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        ConfigurationManager dataManager = plugin.getConfigurationManager();
+        ConfigurationManager dataManager = plugin.getConfigurations();
         LangAPI langAPI = dataManager.getLangApi();
         if (!sender.hasPermission("peridrop.cmd.admindrop")) {
             langAPI.sendMessage(sender, "errors.noperm", new Replacement("{PERMISSION}", "peridrop.cmd.admindrop"));
@@ -35,13 +35,14 @@ public class AdminDropCommand implements CommandExecutor, TabCompleter {
         if (args[0].equalsIgnoreCase("help")) {
             langAPI.sendMessage(sender, "admindrop.help", new Replacement("{LABEL}", label));
         } else if (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
-            if (sender.hasPermission("peridrop.cmd.admindrop.reload")) {
+            if (!sender.hasPermission("peridrop.cmd.admindrop.reload")) {
                 langAPI.sendMessage(sender, "errors.noperm", new Replacement("{PERMISSION}", "peridrop.cmd.admindrop.reload"));
                 return true;
             }
             try {
                 plugin.reloadConfig();
                 dataManager.reloadConfigurations();
+                plugin.initInventoryManager();
             } catch (InvalidConfigurationException ex) {
                 ex.printStackTrace();
                 plugin.getServer().getPluginManager().disablePlugin(plugin);

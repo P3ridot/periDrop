@@ -1,8 +1,8 @@
 package me.peridot.peridrop.drop;
 
+import api.peridot.periapi.configuration.langapi.LangMessage;
 import api.peridot.periapi.items.ItemBuilder;
 import api.peridot.periapi.items.ItemParser;
-import api.peridot.periapi.langapi.LangMessage;
 import api.peridot.periapi.utils.ColorUtil;
 import api.peridot.periapi.utils.Pair;
 import me.peridot.peridrop.PeriDrop;

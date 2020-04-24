@@ -1,6 +1,6 @@
 package me.peridot.peridrop.data.configuration;
 
-import api.peridot.periapi.langapi.LangAPI;
+import api.peridot.periapi.configuration.langapi.LangAPI;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.drop.DropManager;
 import org.bukkit.Bukkit;
@@ -23,6 +23,7 @@ public class ConfigurationManager {
     }
 
     public void reloadConfigurations() throws InvalidConfigurationException {
+        plugin.saveDefaultConfig();
         pluginConfiguration = new PluginConfiguration(plugin);
         pluginConfiguration.reloadConfiguration();
 

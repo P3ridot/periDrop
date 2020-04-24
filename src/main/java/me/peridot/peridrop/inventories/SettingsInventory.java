@@ -1,12 +1,11 @@
 package me.peridot.peridrop.inventories;
 
+import api.peridot.periapi.configuration.langapi.Replacement;
 import api.peridot.periapi.inventories.InventoryContent;
 import api.peridot.periapi.inventories.items.InventoryItem;
 import api.peridot.periapi.inventories.providers.InventoryProvider;
 import api.peridot.periapi.items.ItemBuilder;
-import api.peridot.periapi.langapi.Replacement;
 import me.peridot.peridrop.PeriDrop;
-import me.peridot.peridrop.data.configuration.PluginConfiguration;
 import me.peridot.peridrop.user.SettingsType;
 import me.peridot.peridrop.user.User;
 import org.bukkit.entity.Player;
@@ -26,7 +25,7 @@ public class SettingsInventory implements InventoryProvider {
         content.clear();
         for (SettingsType type : SettingsType.values()) {
             if (!type.isEnabled()) continue;
-            String status = user.isSettingDisabled(type) ? PluginConfiguration.settings_status_disabled : PluginConfiguration.settings_status_enabled;
+            String status = user.isSettingDisabled(type) ? plugin.getConfigurations().getPluginConfiguration().getColoredString("messages.settings_status.enabled") : plugin.getConfigurations().getPluginConfiguration().getColoredString("messages.settings_status.disabled");
             ItemBuilder item = type.getItem()
                     .replaceInName(new Replacement("{STATUS}", status))
                     .replaceInLore(new Replacement("{STATUS}", status));
@@ -36,9 +35,9 @@ public class SettingsInventory implements InventoryProvider {
                     .update(true)
                     .build());
         }
-        content.fillRow(2, InventoryItem.builder().item(PluginConfiguration.settings_background_item.clone()).build());
+        content.fillRow(2, InventoryItem.builder().item(plugin.getConfigurations().getPluginConfiguration().getItemBuilder("inventories.settings.buttons.background").clone()).build());
         content.setItem(2, 5, InventoryItem.builder()
-                .item(PluginConfiguration.settings_back_item.clone())
+                .item(plugin.getConfigurations().getPluginConfiguration().getItemBuilder("inventories.settings.buttons.back").clone())
                 .consumer(event -> plugin.getInventoryManager().getMenuInventory().open(player))
                 .build());
     }
