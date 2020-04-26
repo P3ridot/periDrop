@@ -90,10 +90,10 @@ public class BlockBreakListener implements Listener {
             if (rank.getXp() < 0) rank.setXp(0);
             rank.changeLevel(1);
             if (!user.isSettingDisabled(SettingsType.LEVEL_UP_NOTIFICATION)) {
-                langAPI.sendMessage(player, "ranking.level-up", new Replacement("{OLD-LEVEL}", Integer.valueOf(rank.getLevel() - 1).toString()),
-                        new Replacement("{NEW-LEVEL}", Integer.valueOf(rank.getLevel()).toString()),
-                        new Replacement("{NEXT-LEVEL}", Integer.valueOf(rank.getLevel() + 1).toString()),
-                        new Replacement("{EXP-TO-NEXT-LEVEL}", Integer.valueOf(requiredExp(rank.getLevel() + 1, rank)).toString()));
+                langAPI.sendMessage(player, "ranking.level-up", new Replacement("{OLD-LEVEL}", rank.getLevel() - 1),
+                        new Replacement("{NEW-LEVEL}", rank.getLevel()),
+                        new Replacement("{NEXT-LEVEL}", rank.getLevel() + 1),
+                        new Replacement("{EXP-TO-NEXT-LEVEL}", requiredExp(rank.getLevel() + 1, rank)));
             }
             plugin.getDatabaseManager().getUserDatabase().saveUser(user);
             plugin.getRankManager().update(rank);

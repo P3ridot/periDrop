@@ -31,26 +31,26 @@ public class FortuneInventory implements InventoryProvider {
         content.clear();
         for (FortuneDrop fortuneDrop : drop.getFortuneDropsList()) {
             ItemBuilder item = config.getItemBuilder("inventories.fortune.buttons.fortune").clone();
-            item.replaceInName(new Replacement("{FORTUNE-LEVEL}", Integer.valueOf(fortuneDrop.getFortuneLevel()).toString()),
+            item.replaceInName(new Replacement("{FORTUNE-LEVEL}", fortuneDrop.getFortuneLevel()),
                     new Replacement("{CHANCE}", PluginConfiguration.decimalFormat.format(fortuneDrop.getChance() * 100F)),
                     new Replacement("{OLD-CHANCE}", PluginConfiguration.decimalFormat.format(drop.getChance() * 100F)),
                     new Replacement("{DIFFERENCE-CHANCE}", PluginConfiguration.decimalFormat.format(Math.abs(fortuneDrop.getChance() * 100F - drop.getChance() * 100F))),
-                    new Replacement("{MIN-AMOUNT}", Integer.valueOf(fortuneDrop.getMinAmount()).toString()),
-                    new Replacement("{MAX-AMOUNT}", Integer.valueOf(fortuneDrop.getMaxAmount()).toString()),
-                    new Replacement("{OLD-MIN-AMOUNT}", Integer.valueOf(drop.getMinAmount()).toString()),
-                    new Replacement("{OLD-MAX-AMOUNT}", Integer.valueOf(drop.getMaxAmount()).toString()),
-                    new Replacement("{DIFFERENCE-MIN-AMOUNT}", Integer.valueOf(Math.abs(fortuneDrop.getMinAmount() - drop.getMinAmount())).toString()),
-                    new Replacement("{DIFFERENCE-MAX-AMOUNT}", Integer.valueOf(Math.abs(fortuneDrop.getMaxAmount() - drop.getMaxAmount())).toString()));
-            item.replaceInLore(new Replacement("{FORTUNE-LEVEL}", Integer.valueOf(fortuneDrop.getFortuneLevel()).toString()),
+                    new Replacement("{MIN-AMOUNT}", fortuneDrop.getMinAmount()),
+                    new Replacement("{MAX-AMOUNT}", fortuneDrop.getMaxAmount()),
+                    new Replacement("{OLD-MIN-AMOUNT}", drop.getMinAmount()),
+                    new Replacement("{OLD-MAX-AMOUNT}", drop.getMaxAmount()),
+                    new Replacement("{DIFFERENCE-MIN-AMOUNT}", Math.abs(fortuneDrop.getMinAmount() - drop.getMinAmount())),
+                    new Replacement("{DIFFERENCE-MAX-AMOUNT}", Math.abs(fortuneDrop.getMaxAmount() - drop.getMaxAmount())));
+            item.replaceInLore(new Replacement("{FORTUNE-LEVEL}", fortuneDrop.getFortuneLevel()),
                     new Replacement("{CHANCE}", PluginConfiguration.decimalFormat.format(fortuneDrop.getChance() * 100F)),
                     new Replacement("{OLD-CHANCE}", PluginConfiguration.decimalFormat.format(drop.getChance() * 100F)),
                     new Replacement("{DIFFERENCE-CHANCE}", PluginConfiguration.decimalFormat.format(Math.abs(fortuneDrop.getChance() * 100F - drop.getChance() * 100F))),
-                    new Replacement("{MIN-AMOUNT}", Integer.valueOf(fortuneDrop.getMinAmount()).toString()),
-                    new Replacement("{MAX-AMOUNT}", Integer.valueOf(fortuneDrop.getMaxAmount()).toString()),
-                    new Replacement("{OLD-MIN-AMOUNT}", Integer.valueOf(drop.getMinAmount()).toString()),
-                    new Replacement("{OLD-MAX-AMOUNT}", Integer.valueOf(drop.getMaxAmount()).toString()),
-                    new Replacement("{DIFFERENCE-MIN-AMOUNT}", Integer.valueOf(Math.abs(fortuneDrop.getMinAmount() - drop.getMinAmount())).toString()),
-                    new Replacement("{DIFFERENCE-MAX-AMOUNT}", Integer.valueOf(Math.abs(fortuneDrop.getMaxAmount() - drop.getMaxAmount())).toString()));
+                    new Replacement("{MIN-AMOUNT}", fortuneDrop.getMinAmount()),
+                    new Replacement("{MAX-AMOUNT}", fortuneDrop.getMaxAmount()),
+                    new Replacement("{OLD-MIN-AMOUNT}", drop.getMinAmount()),
+                    new Replacement("{OLD-MAX-AMOUNT}", drop.getMaxAmount()),
+                    new Replacement("{DIFFERENCE-MIN-AMOUNT}", Math.abs(fortuneDrop.getMinAmount() - drop.getMinAmount())),
+                    new Replacement("{DIFFERENCE-MAX-AMOUNT}", Math.abs(fortuneDrop.getMaxAmount() - drop.getMaxAmount())));
 
             if (config.getBoolean("inventories.fortune.buttons.fortune.enchant_with_fortune")) {
                 item.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, fortuneDrop.getFortuneLevel());

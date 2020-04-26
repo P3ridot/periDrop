@@ -44,10 +44,10 @@ public class DropInventory implements InventoryProvider {
                             .setName(drop.getDisplayName())
                             .setLore(replaceInList(lore, new Replacement("{STATUS}", status),
                                     new Replacement("{CHANCE}", PluginConfiguration.decimalFormat.format(drop.getChance() * 100F)),
-                                    new Replacement("{MIN-AMOUNT}", Integer.valueOf(drop.getMinAmount()).toString()),
-                                    new Replacement("{MAX-AMOUNT}", Integer.valueOf(drop.getMaxAmount()).toString()),
-                                    new Replacement("{MIN-HEIGHT}", Integer.valueOf(drop.getMinHeight()).toString()),
-                                    new Replacement("{MAX-HEIGHT}", Integer.valueOf(drop.getMaxHeight()).toString()),
+                                    new Replacement("{MIN-AMOUNT}", drop.getMinAmount()),
+                                    new Replacement("{MAX-AMOUNT}", drop.getMaxAmount()),
+                                    new Replacement("{MIN-HEIGHT}", drop.getMinHeight()),
+                                    new Replacement("{MAX-HEIGHT}", drop.getMaxHeight()),
                                     new Replacement("{BIOMES}", drop.getBiomesListString()),
                                     new Replacement("{TOOLS}", drop.getToolsListString()),
                                     new Replacement("{FORTUNE}", fortune_status)))

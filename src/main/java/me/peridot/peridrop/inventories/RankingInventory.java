@@ -41,13 +41,13 @@ public class RankingInventory implements InventoryProvider {
         for (Rank rank : plugin.getRankManager().getRanksList()) {
             ItemBuilder item = config.getItemBuilder("inventories.ranking.buttons.rank").clone();
             item.replaceInName(new Replacement("{NAME}", rank.getIdentifierName()),
-                    new Replacement("{POSITION}", Integer.valueOf(rank.getPosition() + 1).toString()),
-                    new Replacement("{LEVEL}", Integer.valueOf(rank.getLevel()).toString()),
-                    new Replacement("{XP}", Integer.valueOf(rank.getXp()).toString()));
+                    new Replacement("{POSITION}", rank.getPosition() + 1),
+                    new Replacement("{LEVEL}", rank.getLevel()),
+                    new Replacement("{XP}", rank.getXp()));
             item.replaceInLore(new Replacement("{NAME}", rank.getIdentifierName()),
-                    new Replacement("{POSITION}", Integer.valueOf(rank.getPosition() + 1).toString()),
-                    new Replacement("{LEVEL}", Integer.valueOf(rank.getLevel()).toString()),
-                    new Replacement("{XP}", Integer.valueOf(rank.getXp()).toString()));
+                    new Replacement("{POSITION}", rank.getPosition() + 1),
+                    new Replacement("{LEVEL}", rank.getLevel()),
+                    new Replacement("{XP}", rank.getXp()));
             if (usePlayerAsSkullOwner && rank.getIdentifierName() != null && !rank.getIdentifierName().isEmpty()) {
                 item.setSkullOwner(rank.getIdentifierName());
             }
@@ -71,10 +71,10 @@ public class RankingInventory implements InventoryProvider {
                 .build());
 
         ItemBuilder currentPage = config.getItemBuilder("inventories.ranking.buttons.current-page").clone();
-        currentPage.replaceInName(new Replacement("{PAGE}", Integer.valueOf(page + 1).toString()),
-                new Replacement("{PAGE-COUNT}", Integer.valueOf(pagination.getPageCount()).toString()));
-        currentPage.replaceInLore(new Replacement("{PAGE}", Integer.valueOf(page + 1).toString()),
-                new Replacement("{PAGE-COUNT}", Integer.valueOf(pagination.getPageCount()).toString()));
+        currentPage.replaceInName(new Replacement("{PAGE}", page + 1),
+                new Replacement("{PAGE-COUNT}", pagination.getPageCount()));
+        currentPage.replaceInLore(new Replacement("{PAGE}", page + 1),
+                new Replacement("{PAGE-COUNT}", pagination.getPageCount()));
 
         content.setItem(1, 5, InventoryItem.builder()
                 .item(currentPage)
