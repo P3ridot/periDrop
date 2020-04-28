@@ -5,7 +5,7 @@ apply plugin: 'java'
 
 sourceCompatibility = 1.8
 
-jar{
+jar {
     from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
@@ -22,7 +22,6 @@ repositories {
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT"
     compile "com.zaxxer:HikariCP:3.4.1"
-    compile "com.github.P3ridot:periApi:2227c73a94"
-    compile 'com.github.WesJD:AnvilGUI:master-SNAPSHOT'
+    compile "com.github.P3ridot:periApi:a0fd572abd"
     compile "com.udojava:EvalEx:2.1"
 }

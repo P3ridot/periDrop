@@ -7,7 +7,7 @@ messages:
         content: "&3periDrop &8» &7Nie posiadasz uprawnienia &9{PERMISSION}&7!"
       title:
         enabled: true
-        content: "&8» &c&lBlad"
+        content: "&8» &c&lBrak uprawnien"
         sub-content: "&7Nie posiadasz uprawnien ({PERMISSION})"
         fade-in: 10
         stay: 40

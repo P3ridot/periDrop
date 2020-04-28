@@ -2,8 +2,8 @@ package me.peridot.peridrop.data.configuration;
 
 import api.peridot.periapi.configuration.ConfigurationProvider;
 import api.peridot.periapi.items.ItemParser;
-import api.peridot.periapi.utils.ColorUtil;
 import api.peridot.periapi.utils.Pair;
+import api.peridot.periapi.utils.simple.ColorUtil;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.user.SettingsType;
 import org.bukkit.Bukkit;

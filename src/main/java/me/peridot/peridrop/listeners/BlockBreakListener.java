@@ -1,9 +1,9 @@
 package me.peridot.peridrop.listeners;
 
 import api.peridot.periapi.configuration.langapi.LangAPI;
-import api.peridot.periapi.configuration.langapi.Replacement;
 import api.peridot.periapi.utils.Pair;
 import api.peridot.periapi.utils.Sounds;
+import api.peridot.periapi.utils.replacements.Replacement;
 import com.udojava.evalex.Expression;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.data.configuration.ConfigurationManager;

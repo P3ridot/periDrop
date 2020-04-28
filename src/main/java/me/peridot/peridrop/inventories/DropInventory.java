@@ -1,20 +1,19 @@
 package me.peridot.peridrop.inventories;
 
-import api.peridot.periapi.configuration.langapi.Replacement;
 import api.peridot.periapi.inventories.CustomInventory;
 import api.peridot.periapi.inventories.InventoryContent;
 import api.peridot.periapi.inventories.items.InventoryItem;
 import api.peridot.periapi.inventories.providers.InventoryProvider;
 import api.peridot.periapi.items.ItemBuilder;
+import api.peridot.periapi.utils.replacements.Replacement;
+import api.peridot.periapi.utils.replacements.ReplacementUtil;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.data.configuration.PluginConfiguration;
 import me.peridot.peridrop.drop.Drop;
 import me.peridot.peridrop.drop.DropManager;
 import me.peridot.peridrop.user.User;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DropInventory implements InventoryProvider {
@@ -42,7 +41,7 @@ public class DropInventory implements InventoryProvider {
             content.addItem(InventoryItem.builder()
                     .item(new ItemBuilder(drop.getMaterial(), 1, drop.getDurability())
                             .setName(drop.getDisplayName())
-                            .setLore(replaceInList(lore, new Replacement("{STATUS}", status),
+                            .setLore(ReplacementUtil.replace(lore, new Replacement("{STATUS}", status),
                                     new Replacement("{CHANCE}", PluginConfiguration.decimalFormat.format(drop.getChance() * 100F)),
                                     new Replacement("{MIN-AMOUNT}", drop.getMinAmount()),
                                     new Replacement("{MAX-AMOUNT}", drop.getMaxAmount()),
@@ -101,21 +100,5 @@ public class DropInventory implements InventoryProvider {
 
     @Override
     public void update(Player player, InventoryContent content) {
-    }
-
-    private List<String> replaceInList(List<String> list, Replacement... replacements) {
-        List<String> resultList = new ArrayList<>(list);
-        for (int i = 0; i < resultList.size(); i++) {
-            resultList.set(i, replace(resultList.get(i), replacements));
-        }
-        return resultList;
-    }
-
-    private String replace(String msg, Replacement... replacements) {
-        String toReturn = msg;
-        for (Replacement r : replacements) {
-            toReturn = StringUtils.replace(toReturn, r.getFrom(), r.getTo());
-        }
-        return toReturn;
     }
 }

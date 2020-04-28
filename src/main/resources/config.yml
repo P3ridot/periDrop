@@ -32,11 +32,26 @@ config:
     tool-any: "Kazde"
     biome-any: "Kazdy"
     ranking:
-      default-text: "Podaj strone"
-      not-set: "Pole jest puste!"
-      not-number: "To nie jest liczba!"
-      page-not-exist: "Strona {PAGE} nie istnieje!"
-      page-smaller-than-one: "Strona musi byc rowna lub wieksza od 1!"
+      default-text:
+        - ""
+        - "^^^^^"
+        - "Podaj strone"
+        - ""
+      not-number:
+        - ""
+        - "^^^^^"
+        - "Podaj strone"
+        - "&4Bledna strona"
+      page-not-exist:
+        - ""
+        - "^^^^^"
+        - "Podaj strone"
+        - "&4Bledna strona"
+      page-smaller-than-one:
+        - ""
+        - "^^^^^"
+        - "Podaj strone"
+        - "&4Bledna strona"
   ranking:
     default-level: 1
     drop-exp:
@@ -135,7 +150,7 @@ config:
           material: BARRIER
           name: "&8» &cWroc"
           lore:
-            - "&8» &7Kliknij aby wrocic do strony glownej"
+            - "&8» &7Kliknij aby wrocic do poprzedniej strony"
         fortune:
           enchant_with_fortune: true
           material: DIAMOND_PICKAXE
@@ -154,7 +169,7 @@ config:
           material: BARRIER
           name: "&8» &cWroc"
           lore:
-            - "&8» &7Kliknij aby wrocic do strony glownej"
+            - "&8» &7Kliknij aby wrocic do poprzedniej strony"
         cobblestone_drop:
           enabled: true
           material: COBBLESTONE
@@ -184,7 +199,7 @@ config:
           material: BARRIER
           name: "&8» &cWroc"
           lore:
-            - "&8» &7Kliknij aby wrocic do strony glownej"
+            - "&8» &7Kliknij aby wrocic do poprzedniej strony"
         current-page:
           material: SKULL_ITEM
           durability: 3

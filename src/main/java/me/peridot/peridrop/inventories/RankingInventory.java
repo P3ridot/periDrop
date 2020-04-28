@@ -1,15 +1,17 @@
 package me.peridot.peridrop.inventories;
 
-import api.peridot.periapi.configuration.langapi.Replacement;
 import api.peridot.periapi.inventories.InventoryContent;
 import api.peridot.periapi.inventories.Pagination;
 import api.peridot.periapi.inventories.items.InventoryItem;
 import api.peridot.periapi.inventories.providers.InventoryProvider;
 import api.peridot.periapi.items.ItemBuilder;
+import api.peridot.periapi.packets.SignInput;
+import api.peridot.periapi.utils.replacements.Replacement;
+import api.peridot.periapi.utils.replacements.ReplacementUtil;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.data.configuration.PluginConfiguration;
 import me.peridot.peridrop.user.rank.Rank;
-import net.wesjd.anvilgui.AnvilGUI;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -79,29 +81,30 @@ public class RankingInventory implements InventoryProvider {
         content.setItem(1, 5, InventoryItem.builder()
                 .item(currentPage)
                 .consumer(event -> {
-                    new AnvilGUI.Builder()
-                            .onComplete((anvilPlayer, text) -> {
-                                if (text == null || text.isEmpty()) {
-                                    return AnvilGUI.Response.text(config.getColoredString("messages.ranking.not-set"));
+                    SignInput.builder()
+                            .plugin(plugin)
+                            .text(config.getColoredStringList("messages.ranking.default-text"))
+                            .completeFunction((playerSign, text) -> {
+                                if (text[0].isEmpty() || text[0] == null) {
+                                    return SignInput.response().close();
                                 }
                                 int pageInput = 0;
                                 try {
-                                    pageInput = Integer.parseInt(text);
+                                    pageInput = Integer.parseInt(text[0]);
                                 } catch (Exception ex) {
-                                    return AnvilGUI.Response.text(config.getColoredString("messages.ranking.not-number"));
+                                    return SignInput.response().text(config.getColoredStringList("messages.ranking.not-number"));
                                 }
                                 if (pageInput < 1) {
-                                    return AnvilGUI.Response.text(config.getColoredString("messages.ranking.page-smaller-than-one"));
+                                    return SignInput.response().text(config.getColoredStringList("messages.ranking.page-smaller-than-one"));
                                 }
                                 if (pageInput > pagination.getPageCount()) {
-                                    return AnvilGUI.Response.text(config.getColoredString("messages.ranking.page-not-exist").replace("{PAGE}", text));
+                                    return SignInput.response().text(ReplacementUtil.replace(config.getColoredStringList("messages.ranking.page-not-exist"), new Replacement("{PAGE}", text)));
                                 }
-                                plugin.getInventoryManager().getRankingInventory().open(anvilPlayer, pageInput - 1);
-                                return AnvilGUI.Response.close();
+                                int finalPageInput = pageInput;
+                                Bukkit.getScheduler().runTaskLater(plugin, () -> plugin.getInventoryManager().getRankingInventory().open(playerSign, finalPageInput - 1), 2L);
+                                return SignInput.response().close();
                             })
-                            .text(config.getColoredString("messages.ranking.default-text"))
-                            .plugin(plugin)
-                            .open(player);
+                            .build().open(player);
                 })
                 .build());
 

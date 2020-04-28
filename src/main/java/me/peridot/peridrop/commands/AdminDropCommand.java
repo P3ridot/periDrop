@@ -1,7 +1,7 @@
 package me.peridot.peridrop.commands;
 
 import api.peridot.periapi.configuration.langapi.LangAPI;
-import api.peridot.periapi.configuration.langapi.Replacement;
+import api.peridot.periapi.utils.replacements.Replacement;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.data.configuration.ConfigurationManager;
 import org.bukkit.command.*;

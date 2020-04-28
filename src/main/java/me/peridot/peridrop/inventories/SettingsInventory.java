@@ -1,10 +1,10 @@
 package me.peridot.peridrop.inventories;
 
-import api.peridot.periapi.configuration.langapi.Replacement;
 import api.peridot.periapi.inventories.InventoryContent;
 import api.peridot.periapi.inventories.items.InventoryItem;
 import api.peridot.periapi.inventories.providers.InventoryProvider;
 import api.peridot.periapi.items.ItemBuilder;
+import api.peridot.periapi.utils.replacements.Replacement;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.data.configuration.PluginConfiguration;
 import me.peridot.peridrop.user.SettingsType;

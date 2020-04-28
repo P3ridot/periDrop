@@ -45,15 +45,15 @@ public class PeriDrop extends JavaPlugin {
         userManager = new UserManager();
         rankManager = new RankManager();
 
-        PluginManager pluginManager = Bukkit.getPluginManager();
-        pluginManager.registerEvents(new BlockBreakListener(this), this);
-        pluginManager.registerEvents(new PlayerJoinListener(this), this);
-        pluginManager.registerEvents(new PlayerQuitListener(this), this);
-
         periAPI = new PeriAPI(this);
         periAPI.init();
 
         initInventoryManager();
+
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new BlockBreakListener(this), this);
+        pluginManager.registerEvents(new PlayerJoinListener(this), this);
+        pluginManager.registerEvents(new PlayerQuitListener(this), this);
 
         new AdminDropCommand(this).registerCommand();
         new DropCommand(this).registerCommand();
