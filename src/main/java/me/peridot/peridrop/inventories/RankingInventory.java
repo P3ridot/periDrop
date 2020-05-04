@@ -83,7 +83,7 @@ public class RankingInventory implements InventoryProvider {
                 .consumer(event -> {
                     SignInput.builder()
                             .plugin(plugin)
-                            .text(config.getColoredStringList("messages.ranking.default-text"))
+                            .text(config.getColoredStringList("messages.ranking.sign.default-text"))
                             .completeFunction((playerSign, text) -> {
                                 if (text[0].isEmpty() || text[0] == null) {
                                     return SignInput.response().close();
@@ -92,13 +92,13 @@ public class RankingInventory implements InventoryProvider {
                                 try {
                                     pageInput = Integer.parseInt(text[0]);
                                 } catch (Exception ex) {
-                                    return SignInput.response().text(config.getColoredStringList("messages.ranking.not-number"));
+                                    return SignInput.response().text(config.getColoredStringList("messages.ranking.sign.not-number"));
                                 }
                                 if (pageInput < 1) {
-                                    return SignInput.response().text(config.getColoredStringList("messages.ranking.page-smaller-than-one"));
+                                    return SignInput.response().text(config.getColoredStringList("messages.ranking.sign.page-smaller-than-one"));
                                 }
                                 if (pageInput > pagination.getPageCount()) {
-                                    return SignInput.response().text(ReplacementUtil.replace(config.getColoredStringList("messages.ranking.page-not-exist"), new Replacement("{PAGE}", text)));
+                                    return SignInput.response().text(ReplacementUtil.replace(config.getColoredStringList("messages.ranking.sign.page-not-exist"), new Replacement("{PAGE}", text)));
                                 }
                                 int finalPageInput = pageInput;
                                 Bukkit.getScheduler().runTaskLater(plugin, () -> plugin.getInventoryManager().getRankingInventory().open(playerSign, finalPageInput - 1), 2L);

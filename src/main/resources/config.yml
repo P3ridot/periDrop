@@ -32,26 +32,27 @@ config:
     tool-any: "Kazde"
     biome-any: "Kazdy"
     ranking:
-      default-text:
-        - ""
-        - "^^^^^"
-        - "Podaj strone"
-        - ""
-      not-number:
-        - ""
-        - "^^^^^"
-        - "Podaj strone"
-        - "&4Bledna strona"
-      page-not-exist:
-        - ""
-        - "^^^^^"
-        - "Podaj strone"
-        - "&4Bledna strona"
-      page-smaller-than-one:
-        - ""
-        - "^^^^^"
-        - "Podaj strone"
-        - "&4Bledna strona"
+      sign:
+        default-text:
+          - ""
+          - "^^^^^"
+          - "Podaj strone"
+          - ""
+        not-number:
+          - ""
+          - "^^^^^"
+          - "Podaj strone"
+          - "&4Bledna strona"
+        page-not-exist:
+          - ""
+          - "^^^^^"
+          - "Podaj strone"
+          - "&4Bledna strona"
+        page-smaller-than-one:
+          - ""
+          - "^^^^^"
+          - "Podaj strone"
+          - "&4Bledna strona"
   ranking:
     default-level: 1
     drop-exp:
