@@ -16,7 +16,7 @@ public class ConfigurationManager {
     private DropManager dropManager;
 
     private MessagesConfiguration messagesConfiguration;
-    private LangAPI langApi;
+    private LangAPI lang;
 
     public ConfigurationManager(PeriDrop plugin) {
         this.plugin = plugin;
@@ -34,7 +34,7 @@ public class ConfigurationManager {
 
         messagesConfiguration = new MessagesConfiguration(plugin);
         messagesConfiguration.reloadConfiguration();
-        langApi = new LangAPI(messagesConfiguration.getYamlConfiguration().getConfigurationSection("messages"));
+        lang = new LangAPI(messagesConfiguration.getYamlConfiguration().getConfigurationSection("messages"));
     }
 
     public PluginConfiguration getPluginConfiguration() {
@@ -85,8 +85,8 @@ public class ConfigurationManager {
         return messagesConfiguration;
     }
 
-    public LangAPI getLangAPI() {
-        if (langApi == null) {
+    public LangAPI getLang() {
+        if (lang == null) {
             try {
                 reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
@@ -94,6 +94,6 @@ public class ConfigurationManager {
                 Bukkit.getPluginManager().disablePlugin(plugin);
             }
         }
-        return langApi;
+        return lang;
     }
 }

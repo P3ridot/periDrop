@@ -23,20 +23,20 @@ public class AdminDropCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         ConfigurationManager dataManager = plugin.getConfigurations();
-        LangAPI langAPI = dataManager.getLangAPI();
+        LangAPI lang = dataManager.getLang();
         if (!sender.hasPermission("peridrop.cmd.admindrop")) {
-            langAPI.sendMessage(sender, "errors.noperm", new Replacement("{PERMISSION}", "peridrop.cmd.admindrop"));
+            lang.sendMessage(sender, "errors.noperm", new Replacement("{PERMISSION}", "peridrop.cmd.admindrop"));
             return true;
         }
         if (args.length < 1) {
-            langAPI.sendMessage(sender, "admindrop.help", new Replacement("{LABEL}", label));
+            lang.sendMessage(sender, "admindrop.help", new Replacement("{LABEL}", label));
             return true;
         }
         if (args[0].equalsIgnoreCase("help")) {
-            langAPI.sendMessage(sender, "admindrop.help", new Replacement("{LABEL}", label));
+            lang.sendMessage(sender, "admindrop.help", new Replacement("{LABEL}", label));
         } else if (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
             if (!sender.hasPermission("peridrop.cmd.admindrop.reload")) {
-                langAPI.sendMessage(sender, "errors.noperm", new Replacement("{PERMISSION}", "peridrop.cmd.admindrop.reload"));
+                lang.sendMessage(sender, "errors.noperm", new Replacement("{PERMISSION}", "peridrop.cmd.admindrop.reload"));
                 return true;
             }
             try {
@@ -47,16 +47,16 @@ public class AdminDropCommand implements CommandExecutor, TabCompleter {
                 ex.printStackTrace();
                 plugin.getServer().getPluginManager().disablePlugin(plugin);
             }
-            langAPI.sendMessage(sender, "admindrop.configuration_reloaded");
+            lang.sendMessage(sender, "admindrop.configuration_reloaded");
         } else if (args[0].equalsIgnoreCase("rank-update") || args[0].equalsIgnoreCase("ranking-update")) {
             if (!sender.hasPermission("peridrop.cmd.admindrop.ranking-update")) {
-                langAPI.sendMessage(sender, "errors.noperm", new Replacement("{PERMISSION}", "peridrop.cmd.admindrop.ranking-update"));
+                lang.sendMessage(sender, "errors.noperm", new Replacement("{PERMISSION}", "peridrop.cmd.admindrop.ranking-update"));
                 return true;
             }
             plugin.getDatabaseManager().getRankDatabase().loadRanksAsync();
-            langAPI.sendMessage(sender, "admindrop.ranking_update");
+            lang.sendMessage(sender, "admindrop.ranking_update");
         } else {
-            langAPI.sendMessage(sender, "admindrop.help", new Replacement("{LABEL}", label));
+            lang.sendMessage(sender, "admindrop.help", new Replacement("{LABEL}", label));
         }
         return true;
     }

@@ -6,7 +6,6 @@ import api.peridot.periapi.utils.Pair;
 import api.peridot.periapi.utils.simple.ColorUtil;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.user.SettingsType;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -66,7 +65,7 @@ public class PluginConfiguration extends ConfigurationProvider {
                 Material material = Material.matchMaterial(splited[0]);
                 boolean silktouch = Boolean.parseBoolean(splited[1]);
                 blockedDropsMap.put(material, silktouch);
-            } catch (Exception ignored) {
+            } catch (Exception ex) {
             }
         }
 
@@ -84,7 +83,7 @@ public class PluginConfiguration extends ConfigurationProvider {
                     maxRange = Integer.parseInt(amountRangeSplited[1]);
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    Bukkit.getLogger().severe("Invalid range value(s)");
+                    plugin.getLogger().severe("Invalid range value(s)");
                     continue;
                 }
 

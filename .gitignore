@@ -1,5 +1,5 @@
 .idea
 .gradle
-gradle
-build
-libs
+gradle/
+build/
+libs/

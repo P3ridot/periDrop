@@ -43,7 +43,7 @@ public class BlockBreakListener implements Listener {
         ConfigurationManager dataManager = plugin.getConfigurations();
         PluginConfiguration config = dataManager.getPluginConfiguration();
         DropManager dropManager = dataManager.getDropManager();
-        LangAPI langAPI = dataManager.getLangAPI();
+        LangAPI lang = dataManager.getLang();
 
         Player player = event.getPlayer();
         User user = plugin.getUserManager().createUser(player);
@@ -55,9 +55,9 @@ public class BlockBreakListener implements Listener {
         if (PluginConfiguration.blockedDropsMap.containsKey(block.getType())) {
             if (PluginConfiguration.blockedDropsMap.get(block.getType())) {
                 if (tool.getEnchantmentLevel(Enchantment.SILK_TOUCH) >= 1) return;
-                langAPI.sendMessage(player, "errors.blocked-drop.silktouch", new Replacement("{BLOCK}", block.getType().name().toUpperCase()));
+                lang.sendMessage(player, "errors.blocked-drop.silktouch", new Replacement("{BLOCK}", block.getType().name().toUpperCase()));
             } else {
-                langAPI.sendMessage(player, "errors.blocked-drop.not-silktouch", new Replacement("{BLOCK}", block.getType().name().toUpperCase()));
+                lang.sendMessage(player, "errors.blocked-drop.not-silktouch", new Replacement("{BLOCK}", block.getType().name().toUpperCase()));
             }
             block.setType(Material.AIR);
             event.setCancelled(true);
@@ -90,7 +90,7 @@ public class BlockBreakListener implements Listener {
             if (rank.getXp() < 0) rank.setXp(0);
             rank.changeLevel(1);
             if (!user.isSettingDisabled(SettingsType.LEVEL_UP_NOTIFICATION)) {
-                langAPI.sendMessage(player, "ranking.level-up", new Replacement("{OLD-LEVEL}", rank.getLevel() - 1),
+                lang.sendMessage(player, "ranking.level-up", new Replacement("{OLD-LEVEL}", rank.getLevel() - 1),
                         new Replacement("{NEW-LEVEL}", rank.getLevel()),
                         new Replacement("{NEXT-LEVEL}", rank.getLevel() + 1),
                         new Replacement("{EXP-TO-NEXT-LEVEL}", requiredExp(rank.getLevel() + 1, rank)));
