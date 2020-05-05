@@ -3,7 +3,6 @@ package me.peridot.peridrop.commands;
 import api.peridot.periapi.configuration.langapi.LangAPI;
 import api.peridot.periapi.utils.replacements.Replacement;
 import me.peridot.peridrop.PeriDrop;
-import me.peridot.peridrop.data.configuration.ConfigurationManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,8 +19,7 @@ public class DropCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        ConfigurationManager dataManager = plugin.getConfigurations();
-        LangAPI lang = dataManager.getLang();
+        LangAPI lang = plugin.getConfigurations().getLang();
         if (!(sender instanceof Player)) {
             lang.sendSimpleMessage(sender, "errors.noplayer");
             return true;

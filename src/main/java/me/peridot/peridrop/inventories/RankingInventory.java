@@ -85,7 +85,7 @@ public class RankingInventory implements InventoryProvider {
                             .plugin(plugin)
                             .text(config.getColoredStringList("messages.ranking.sign.default-text"))
                             .completeFunction((playerSign, text) -> {
-                                if (text[0].isEmpty() || text[0] == null) {
+                                if (text[0] == null || text[0].isEmpty()) {
                                     return SignInput.response().close();
                                 }
                                 int pageInput = 0;

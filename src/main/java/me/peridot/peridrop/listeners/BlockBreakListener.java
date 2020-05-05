@@ -6,7 +6,6 @@ import api.peridot.periapi.utils.Sounds;
 import api.peridot.periapi.utils.replacements.Replacement;
 import com.udojava.evalex.Expression;
 import me.peridot.peridrop.PeriDrop;
-import me.peridot.peridrop.data.configuration.ConfigurationManager;
 import me.peridot.peridrop.data.configuration.PluginConfiguration;
 import me.peridot.peridrop.drop.Drop;
 import me.peridot.peridrop.drop.DropManager;
@@ -40,10 +39,9 @@ public class BlockBreakListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        ConfigurationManager dataManager = plugin.getConfigurations();
-        PluginConfiguration config = dataManager.getPluginConfiguration();
-        DropManager dropManager = dataManager.getDropManager();
-        LangAPI lang = dataManager.getLang();
+        PluginConfiguration config = plugin.getConfigurations().getPluginConfiguration();
+        DropManager dropManager = plugin.getConfigurations().getDropManager();
+        LangAPI lang = plugin.getConfigurations().getLang();
 
         Player player = event.getPlayer();
         User user = plugin.getUserManager().createUser(player);
