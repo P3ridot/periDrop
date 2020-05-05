@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public class UserManager {
+public class UserCache {
 
     private final Map<UUID, User> userMap = new HashMap<>();
     private final Cache<UUID, User> userCache = CacheBuilder.newBuilder()

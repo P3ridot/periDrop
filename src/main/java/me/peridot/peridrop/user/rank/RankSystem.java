@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 
-public class RankManager {
+public class RankSystem {
 
     protected NavigableSet<Rank> ranksSet = new TreeSet<>(Collections.reverseOrder());
 

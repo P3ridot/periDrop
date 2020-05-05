@@ -21,7 +21,7 @@ public class RankDatabase {
     }
 
     public void loadRanks() {
-        plugin.getRankManager().clear();
+        plugin.getRankSystem().clear();
         databaseManager.initTable();
 
         String sql = "SELECT * FROM `" + databaseManager.tableName + "`;";
@@ -39,7 +39,7 @@ public class RankDatabase {
                 Rank rank = new Rank(uuid, name);
                 rank.setLevel(level);
                 rank.setXp(xp);
-                plugin.getRankManager().update(rank);
+                plugin.getRankSystem().update(rank);
             }
         } catch (SQLException ex) {
             this.plugin.getLogger().severe("Failed to load rank data!");

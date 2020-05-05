@@ -28,7 +28,7 @@ public class DropInventory implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContent content) {
-        User user = plugin.getUserManager().createUser(player);
+        User user = plugin.getUserCache().createUser(player);
         PluginConfiguration config = plugin.getConfigurations().getPluginConfiguration();
         DropManager dropManager = plugin.getConfigurations().getDropManager();
 

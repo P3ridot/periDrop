@@ -23,7 +23,7 @@ public class SettingsInventory implements InventoryProvider {
     public void init(Player player, InventoryContent content) {
         PluginConfiguration config = plugin.getConfigurations().getPluginConfiguration();
 
-        User user = plugin.getUserManager().createUser(player);
+        User user = plugin.getUserCache().createUser(player);
 
         content.clear();
         for (SettingsType type : SettingsType.values()) {

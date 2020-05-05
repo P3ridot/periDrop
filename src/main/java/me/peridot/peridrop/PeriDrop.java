@@ -12,8 +12,8 @@ import me.peridot.peridrop.listeners.PlayerQuitListener;
 import me.peridot.peridrop.schedulers.AutoSaveScheduler;
 import me.peridot.peridrop.schedulers.RankingUpdateScheduler;
 import me.peridot.peridrop.user.User;
-import me.peridot.peridrop.user.UserManager;
-import me.peridot.peridrop.user.rank.RankManager;
+import me.peridot.peridrop.user.UserCache;
+import me.peridot.peridrop.user.rank.RankSystem;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
@@ -24,8 +24,8 @@ public class PeriDrop extends JavaPlugin {
 
     private ConfigurationManager configurationManager;
     private DatabaseManager databaseManager;
-    private UserManager userManager;
-    private RankManager rankManager;
+    private UserCache userCache;
+    private RankSystem rankSystem;
     private PeriAPI periAPI;
     private InventoryManager inventoryManager;
 
@@ -42,8 +42,8 @@ public class PeriDrop extends JavaPlugin {
         databaseManager = new DatabaseManager(this);
         databaseManager.init();
 
-        userManager = new UserManager();
-        rankManager = new RankManager();
+        userCache = new UserCache();
+        rankSystem = new RankSystem();
 
         periAPI = new PeriAPI(this);
         periAPI.init();
@@ -65,7 +65,7 @@ public class PeriDrop extends JavaPlugin {
     @Override
     public void onDisable() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            User user = userManager.createUser(player);
+            User user = userCache.createUser(player);
             getDatabaseManager().getUserDatabase().saveUser(user);
         }
     }
@@ -78,12 +78,12 @@ public class PeriDrop extends JavaPlugin {
         return databaseManager;
     }
 
-    public UserManager getUserManager() {
-        return userManager;
+    public UserCache getUserCache() {
+        return userCache;
     }
 
-    public RankManager getRankManager() {
-        return rankManager;
+    public RankSystem getRankSystem() {
+        return rankSystem;
     }
 
     public PeriAPI getPeriAPI() {

@@ -44,7 +44,7 @@ public class BlockBreakListener implements Listener {
         LangAPI lang = plugin.getConfigurations().getLang();
 
         Player player = event.getPlayer();
-        User user = plugin.getUserManager().createUser(player);
+        User user = plugin.getUserCache().createUser(player);
         Rank rank = user.getRank();
         ItemStack tool = player.getItemInHand();
         Block block = event.getBlock();
@@ -94,7 +94,7 @@ public class BlockBreakListener implements Listener {
                         new Replacement("{EXP-TO-NEXT-LEVEL}", requiredExp(rank.getLevel() + 1, rank)));
             }
             plugin.getDatabaseManager().getUserDatabase().saveUser(user);
-            plugin.getRankManager().update(rank);
+            plugin.getRankSystem().update(rank);
         }
 
         if (dropManager.getDropsList().isEmpty()) return;

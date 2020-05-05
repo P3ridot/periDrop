@@ -16,7 +16,7 @@ public class AutoSaveScheduler {
     public void start() {
         Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                User user = plugin.getUserManager().createUser(player);
+                User user = plugin.getUserCache().createUser(player);
                 plugin.getDatabaseManager().getUserDatabase().saveUserAsync(user);
             }
         }, 0, 20 * plugin.getConfigurations().getPluginConfiguration().getInt("tasks.autosave"));

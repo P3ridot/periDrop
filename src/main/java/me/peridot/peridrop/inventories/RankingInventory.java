@@ -40,7 +40,7 @@ public class RankingInventory implements InventoryProvider {
 
         boolean usePlayerAsSkullOwner = config.getBoolean("inventories.ranking.buttons.rank.use_player_as_skull_owner");
 
-        for (Rank rank : plugin.getRankManager().getRanksList()) {
+        for (Rank rank : plugin.getRankSystem().getRanksList()) {
             ItemBuilder item = config.getItemBuilder("inventories.ranking.buttons.rank").clone();
             item.replaceInName(new Replacement("{NAME}", rank.getIdentifierName()),
                     new Replacement("{POSITION}", rank.getPosition() + 1),
