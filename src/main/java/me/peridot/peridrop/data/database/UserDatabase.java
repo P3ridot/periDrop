@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class UserDatabase {
 
@@ -47,6 +48,8 @@ public class UserDatabase {
                     disabledSettings.add(SettingsType.valueOf(disabledSetting.toUpperCase()));
                 }
                 disabledSettings.forEach(settingsType -> user.setSettingDisabled(settingsType, true));
+                rank.setModified(false);
+                user.setModified(false);
             }
         } catch (SQLException ex) {
             this.plugin.getLogger().severe("Failed to load rank data!");
@@ -90,6 +93,9 @@ public class UserDatabase {
                 statement.setString(8, disabledSettings.toString().replaceFirst(";", ""));
             }
 
+            user.setModified(false);
+            rank.setModified(false);
+
             statement.executeUpdate();
         } catch (SQLException ex) {
             this.plugin.getLogger().severe("Failed to save rank data!");
@@ -99,5 +105,57 @@ public class UserDatabase {
 
     public void saveUserAsync(User user) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> saveUser(user));
+    }
+
+    public void saveUsers(Set<User> users) {
+        databaseManager.initTable();
+
+        String sql = "";
+        if (databaseManager.useMysql) {
+            sql = "INSERT INTO `" + databaseManager.tableName + "` (`uuid`, `name`, `level`, `xp`, `disabled_settings`) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `level`=?, `xp`=?, `disabled_settings`=?;";
+        } else {
+            sql = "INSERT OR REPLACE INTO `" + databaseManager.tableName + "` (`uuid`, `name`, `level`, `xp`, `disabled_settings`) VALUES (?, ?, ?, ?, ?);";
+        }
+
+        try (Connection connection = databaseManager.database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            int i = 0;
+            for (User user : users) {
+                Rank rank = user.getRank();
+
+                StringBuilder disabledSettings = new StringBuilder();
+                for (SettingsType setting : user.getDisabledSettings()) {
+                    disabledSettings.append(";").append(setting.name().toUpperCase());
+                }
+                statement.setString(1, user.getUuid().toString());
+                statement.setString(2, user.getName());
+                statement.setInt(3, rank.getLevel());
+                statement.setInt(4, rank.getXp());
+                statement.setString(5, disabledSettings.toString().replaceFirst(";", ""));
+                if (databaseManager.useMysql) {
+                    statement.setInt(6, rank.getLevel());
+                    statement.setInt(7, rank.getXp());
+                    statement.setString(8, disabledSettings.toString().replaceFirst(";", ""));
+                }
+
+                user.setModified(false);
+                rank.setModified(false);
+
+                statement.addBatch();
+                i++;
+
+                if (i % 1000 == 0 || i == users.size()) {
+                    statement.executeBatch();
+                }
+            }
+        } catch (SQLException ex) {
+            this.plugin.getLogger().severe("Failed to save rank data!");
+            ex.printStackTrace();
+        }
+    }
+
+    public void saveUsersAsync(Set<User> users) {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> saveUsers(users));
     }
 }

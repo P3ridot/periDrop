@@ -20,6 +20,7 @@ public class DatabaseManager {
 
     public boolean useMysql;
     public String tableName;
+    public int batchLength;
 
     private final UserDatabase userDatabase;
     private final RankDatabase rankDatabase;
@@ -36,6 +37,7 @@ public class DatabaseManager {
 
         this.useMysql = configurationSection.getString("type").equalsIgnoreCase("MYSQL");
         this.tableName = configurationSection.getString("tableName");
+        this.batchLength = configurationSection.getInt("batchLength");
 
         this.database = new HikariDataSource();
 

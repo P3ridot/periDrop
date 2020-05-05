@@ -3,11 +3,12 @@ package me.peridot.peridrop.user.rank;
 import jdk.nashorn.internal.objects.annotations.Getter;
 import jdk.nashorn.internal.objects.annotations.Setter;
 import me.peridot.peridrop.data.configuration.PluginConfiguration;
+import me.peridot.peridrop.modifiable.Modifiable;
 import me.peridot.peridrop.user.User;
 
 import java.util.UUID;
 
-public class Rank implements Comparable<Rank> {
+public class Rank extends Modifiable implements Comparable<Rank> {
 
     private final UUID uuid;
     private final String identifierName;
@@ -56,10 +57,12 @@ public class Rank implements Comparable<Rank> {
     @Setter
     public void setXp(int xp) {
         this.xp = xp;
+        setModified(true);
     }
 
     public void changeXp(int change) {
         this.xp = Math.max(0, this.xp + change);
+        setModified(true);
     }
 
     @Getter
@@ -70,10 +73,12 @@ public class Rank implements Comparable<Rank> {
     @Setter
     public void setLevel(int level) {
         this.level = level;
+        setModified(true);
     }
 
     public void changeLevel(int change) {
         this.level = Math.max(0, this.level + change);
+        setModified(true);
     }
 
     @Override

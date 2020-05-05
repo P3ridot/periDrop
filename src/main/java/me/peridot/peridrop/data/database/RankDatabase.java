@@ -39,6 +39,7 @@ public class RankDatabase {
                 Rank rank = new Rank(uuid, name);
                 rank.setLevel(level);
                 rank.setXp(xp);
+                rank.setModified(false);
                 plugin.getRankSystem().update(rank);
             }
         } catch (SQLException ex) {
@@ -65,6 +66,7 @@ public class RankDatabase {
             if (result.next()) {
                 rank.setLevel(result.getInt("level"));
                 rank.setXp(result.getInt("xp"));
+                rank.setModified(false);
             }
         } catch (SQLException ex) {
             this.plugin.getLogger().severe("Failed to load rank data!");

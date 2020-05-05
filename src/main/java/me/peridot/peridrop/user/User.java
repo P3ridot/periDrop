@@ -1,13 +1,14 @@
 package me.peridot.peridrop.user;
 
 import me.peridot.peridrop.drop.Drop;
+import me.peridot.peridrop.modifiable.Modifiable;
 import me.peridot.peridrop.user.rank.Rank;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class User {
+public class User extends Modifiable {
 
     private final UUID uuid;
     private final String name;
@@ -47,6 +48,7 @@ public class User {
         } else if (!disabled && isDropDisabled(drop)) {
             disabledDrops.remove(drop);
         }
+        setModified(true);
     }
 
     public void toggleDrop(Drop drop) {
@@ -69,6 +71,7 @@ public class User {
         } else if (!disabled && isSettingDisabled(type)) {
             disabledSettings.remove(type);
         }
+        setModified(true);
     }
 
     public void toggleSetting(SettingsType type) {
@@ -81,5 +84,6 @@ public class User {
 
     public void setRank(Rank rank) {
         this.rank = rank;
+        setModified(true);
     }
 }

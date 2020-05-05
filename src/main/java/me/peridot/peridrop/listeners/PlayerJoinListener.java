@@ -19,7 +19,7 @@ public class PlayerJoinListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         User user = plugin.getUserCache().createUser(player);
-        plugin.getDatabaseManager().getUserDatabase().loadUser(user);
+        plugin.getDatabaseManager().getUserDatabase().loadUserAsync(user);
         plugin.getRankSystem().update(user);
     }
 

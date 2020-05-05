@@ -7,8 +7,10 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class UserCache {
 
@@ -18,7 +20,7 @@ public class UserCache {
             .build();
 
     public void removeUser(UUID uuid) {
-        final User user = userMap.get(uuid);
+        User user = userMap.get(uuid);
         if (user != null) {
             userCache.put(uuid, user);
         }
@@ -32,7 +34,7 @@ public class UserCache {
     public User createUser(UUID uuid) {
         User user = userMap.get(uuid);
         if (user == null) {
-            final User cachedUser = userCache.getIfPresent(uuid);
+            User cachedUser = userCache.getIfPresent(uuid);
             if (cachedUser != null) {
                 userMap.put(uuid, user = cachedUser);
                 return user;
@@ -44,6 +46,12 @@ public class UserCache {
 
     public User createUser(Player player) {
         return createUser(player.getUniqueId());
+    }
+
+    public Set<User> getModifiedUsers() {
+        return userMap.values().stream()
+                .filter(user -> user.isModified() || user.getRank().isModified())
+                .collect(Collectors.toSet());
     }
 
 }

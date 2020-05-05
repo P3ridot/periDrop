@@ -10,6 +10,7 @@ config:
       useSSL: true
       poolSize: 5
       connetionTimeout: 20000
+      batchLength: 1000
     sqlite:
       fileName: "data.sqlite"
     tableName: "peridrop_users"

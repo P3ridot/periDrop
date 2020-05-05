@@ -19,7 +19,7 @@ public class PlayerQuitListener implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         User user = plugin.getUserCache().createUser(player);
-        plugin.getDatabaseManager().getUserDatabase().saveUser(user);
+        plugin.getDatabaseManager().getUserDatabase().saveUserAsync(user);
         plugin.getRankSystem().update(user);
         plugin.getUserCache().removeUser(player);
     }
