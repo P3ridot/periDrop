@@ -13,7 +13,7 @@ public class AutoSaveScheduler {
 
     public void start() {
         Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
-            plugin.getDatabaseManager().getUserDatabase().saveUsersAsync(plugin.getUserCache().getModifiedUsers());
+            plugin.getDatabaseManager().getUserDatabase().saveUsers(plugin.getUserCache().getModifiedUsers());
         }, 0, 20 * plugin.getConfigurations().getPluginConfiguration().getInt("tasks.autosave"));
     }
 

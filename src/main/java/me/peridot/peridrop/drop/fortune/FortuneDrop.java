@@ -1,7 +1,6 @@
 package me.peridot.peridrop.drop.fortune;
 
 import api.peridot.periapi.utils.Pair;
-import jdk.nashorn.internal.objects.annotations.Getter;
 
 public class FortuneDrop {
 
@@ -15,27 +14,22 @@ public class FortuneDrop {
         this.amount = amount;
     }
 
-    @Getter
     public int getFortuneLevel() {
         return fortuneLevel;
     }
 
-    @Getter
     public float getChance() {
         return chance;
     }
 
-    @Getter
     public Pair<Integer, Integer> getAmount() {
         return amount;
     }
 
-    @Getter
     public int getMinAmount() {
         return amount.getKey();
     }
 
-    @Getter
     public int getMaxAmount() {
         return amount.getValue();
     }

@@ -1,8 +1,6 @@
 package me.peridot.peridrop.user;
 
 import api.peridot.periapi.items.ItemBuilder;
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
 
 public enum SettingsType {
     COBBLESTONE_DROP(null, false),
@@ -17,22 +15,18 @@ public enum SettingsType {
         this.enabled = enabled;
     }
 
-    @Getter
     public ItemBuilder getItem() {
         return item.clone();
     }
 
-    @Setter
     public void setItem(ItemBuilder item) {
         this.item = item;
     }
 
-    @Getter
     public boolean isEnabled() {
         return enabled;
     }
 
-    @Setter
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }

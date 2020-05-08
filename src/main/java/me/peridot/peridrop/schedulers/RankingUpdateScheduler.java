@@ -13,7 +13,7 @@ public class RankingUpdateScheduler {
 
     public void start() {
         Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
-            plugin.getDatabaseManager().getRankDatabase().loadRanksAsync();
+            plugin.getDatabaseManager().getRankDatabase().loadRanks();
         }, 0, 20 * plugin.getConfigurations().getPluginConfiguration().getInt("tasks.ranking-update"));
     }
 

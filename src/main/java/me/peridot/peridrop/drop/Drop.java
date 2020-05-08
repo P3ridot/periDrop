@@ -3,7 +3,6 @@ package me.peridot.peridrop.drop;
 import api.peridot.periapi.configuration.langapi.LangMessage;
 import api.peridot.periapi.items.ItemBuilder;
 import api.peridot.periapi.utils.Pair;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import me.peridot.peridrop.data.configuration.PluginConfiguration;
 import me.peridot.peridrop.drop.fortune.FortuneDrop;
 import org.bukkit.Material;
@@ -42,57 +41,46 @@ public class Drop {
         this.message = message;
     }
 
-    @Getter
     public ItemBuilder getItem() {
         return item;
     }
 
-    @Getter
     public Material getMaterial() {
         return material;
     }
 
-    @Getter
     public short getDurability() {
         return durability;
     }
 
-    @Getter
     public String getDisplayName() {
         return displayName;
     }
 
-    @Getter
     public float getChance() {
         return chance;
     }
 
-    @Getter
     public Pair<Integer, Integer> getAmount() {
         return amount;
     }
 
-    @Getter
     public int getMinAmount() {
         return amount.getKey();
     }
 
-    @Getter
     public int getMaxAmount() {
         return amount.getValue();
     }
 
-    @Getter
     public Pair<Integer, Integer> getHeight() {
         return height;
     }
 
-    @Getter
     public int getMinHeight() {
         return height.getKey();
     }
 
-    @Getter
     public int getMaxHeight() {
         return height.getValue();
     }
@@ -104,7 +92,6 @@ public class Drop {
         return height >= minHeight && height <= maxHeight;
     }
 
-    @Getter
     public List<Biome> getBiomesList() {
         return new ArrayList<Biome>(biomesList);
     }
@@ -118,7 +105,6 @@ public class Drop {
         return getBiomesList().contains(biome);
     }
 
-    @Getter
     public String getBiomesListString() {
         StringBuilder biomes = new StringBuilder();
 
@@ -131,7 +117,6 @@ public class Drop {
         return biomes.toString().replaceFirst(", ", "");
     }
 
-    @Getter
     public List<Material> getToolsList() {
         return new ArrayList<Material>(toolsList);
     }
@@ -145,7 +130,6 @@ public class Drop {
         return getToolsList().contains(tool);
     }
 
-    @Getter
     public String getToolsListString() {
         StringBuilder tools = new StringBuilder();
 
@@ -158,7 +142,6 @@ public class Drop {
         return tools.toString().replaceFirst(", ", "");
     }
 
-    @Getter
     public List<FortuneDrop> getFortuneDropsList() {
         return new ArrayList<>(fortuneDropsList);
     }
@@ -167,7 +150,6 @@ public class Drop {
         return !getFortuneDropsList().isEmpty();
     }
 
-    @Getter
     public FortuneDrop getFortuneDropForTool(ItemStack tool) {
         if (tool.getItemMeta() == null) return null;
 
@@ -189,7 +171,6 @@ public class Drop {
         return null;
     }
 
-    @Getter
     public LangMessage getMessage() {
         return message;
     }
