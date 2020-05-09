@@ -11,4 +11,5 @@ public abstract class Modifiable {
     public boolean isModified() {
         return modified;
     }
+
 }

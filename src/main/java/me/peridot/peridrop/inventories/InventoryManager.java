@@ -40,7 +40,7 @@ public class InventoryManager {
                 .provider(new DropInventory(plugin, drop_inventory_rows))
                 .rows(drop_inventory_rows)
                 .title(config.getColoredString("inventories.drop.title"))
-                .updateDelay(20)
+                .updateDelay(-1)
                 .build();
 
         settingsInventory = CustomInventory.builder()
@@ -49,7 +49,7 @@ public class InventoryManager {
                 .provider(new SettingsInventory(plugin))
                 .rows(2)
                 .title(config.getColoredString("inventories.settings.title"))
-                .updateDelay(20)
+                .updateDelay(-1)
                 .build();
 
         rankingInventory = CustomInventory.builder()
