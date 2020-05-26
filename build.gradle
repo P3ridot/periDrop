@@ -22,6 +22,6 @@ repositories {
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT"
     compile "com.zaxxer:HikariCP:3.4.1"
-    compile "com.github.P3ridot:periApi:9e3cf0da68"
+    compile "com.github.P3ridot:periApi:fde0ad8d71"
     compile "com.udojava:EvalEx:2.1"
 }
