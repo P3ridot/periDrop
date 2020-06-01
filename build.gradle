@@ -1,14 +1,22 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "5.2.0"
+}
+
 group 'me.peridot.peridrop'
 version '1.0'
 
 apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 sourceCompatibility = 1.8
 
-jar {
-    from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+shadowJar {
+    mergeServiceFiles()
+    relocate 'api.peridot.periapi', 'me.peridot.peridrop.libs.periapi'
+    relocate 'org.slf4j', 'me.peridot.peridrop.libs.slf4j'
+    relocate 'com.zaxxer.hikari', 'me.peridot.peridrop.libs.hikari'
+    relocate 'com.udojava.evalex', 'me.peridot.peridrop.libs.evalex'
 }
-
 
 repositories {
     mavenCentral()

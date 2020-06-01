@@ -1,7 +1,6 @@
 package me.peridot.peridrop.schedulers;
 
 import me.peridot.peridrop.PeriDrop;
-import org.bukkit.Bukkit;
 
 public class AutoSaveScheduler {
 
@@ -12,7 +11,7 @@ public class AutoSaveScheduler {
     }
 
     public void start() {
-        Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
+        plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, () -> {
             plugin.getDatabaseManager().getUserDatabase().saveUsers(plugin.getUserCache().getModifiedUsers());
         }, 0, 20 * plugin.getConfigurations().getPluginConfiguration().getInt("tasks.autosave"));
     }
