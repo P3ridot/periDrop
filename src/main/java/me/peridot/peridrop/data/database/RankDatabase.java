@@ -2,7 +2,6 @@ package me.peridot.peridrop.data.database;
 
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.user.rank.Rank;
-import org.bukkit.Bukkit;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,7 +48,7 @@ public class RankDatabase {
     }
 
     public void loadRanksAsync() {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, this::loadRanks);
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, this::loadRanks);
     }
 
     public void loadRank(Rank rank) {
@@ -75,6 +74,6 @@ public class RankDatabase {
     }
 
     public void loadRankAsync(Rank rank) {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> loadRank(rank));
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> loadRank(rank));
     }
 }

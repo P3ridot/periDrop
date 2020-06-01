@@ -2,7 +2,6 @@ package me.peridot.peridrop.data.database;
 
 import com.zaxxer.hikari.HikariDataSource;
 import me.peridot.peridrop.PeriDrop;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -65,7 +64,7 @@ public class DatabaseManager {
             } catch (Exception ex) {
                 ex.printStackTrace();
                 this.plugin.getLogger().severe("Failed to initialize SQLite driver!");
-                Bukkit.getPluginManager().disablePlugin(plugin);
+                plugin.getServer().getPluginManager().disablePlugin(plugin);
             }
 
             File sqliteFile = new File(this.plugin.getDataFolder(), configurationSection.getString("sqlite.fileName"));
@@ -73,12 +72,12 @@ public class DatabaseManager {
                 try {
                     if (!sqliteFile.createNewFile()) {
                         this.plugin.getLogger().severe("Failed to create SQLite database file!");
-                        Bukkit.getPluginManager().disablePlugin(plugin);
+                        plugin.getServer().getPluginManager().disablePlugin(plugin);
                     }
                 } catch (IOException exception) {
                     exception.printStackTrace();
                     this.plugin.getLogger().severe("Failed to create SQLite database file!");
-                    Bukkit.getPluginManager().disablePlugin(plugin);
+                    plugin.getServer().getPluginManager().disablePlugin(plugin);
                 }
             }
 
@@ -91,7 +90,7 @@ public class DatabaseManager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             this.plugin.getLogger().severe("Test database connection failed!");
-            Bukkit.getPluginManager().disablePlugin(plugin);
+            plugin.getServer().getPluginManager().disablePlugin(plugin);
         }
     }
 
@@ -110,7 +109,7 @@ public class DatabaseManager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             this.plugin.getLogger().severe("Failed to create database table!");
-            Bukkit.getPluginManager().disablePlugin(plugin);
+            plugin.getServer().getPluginManager().disablePlugin(plugin);
         }
     }
 

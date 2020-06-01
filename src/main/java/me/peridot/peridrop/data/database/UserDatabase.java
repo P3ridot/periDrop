@@ -4,7 +4,6 @@ import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.user.SettingsType;
 import me.peridot.peridrop.user.User;
 import me.peridot.peridrop.user.rank.Rank;
-import org.bukkit.Bukkit;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -58,7 +57,7 @@ public class UserDatabase {
     }
 
     public void loadUserAsync(User user) {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> loadUser(user));
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> loadUser(user));
     }
 
     public void saveUser(User user) {
@@ -104,7 +103,7 @@ public class UserDatabase {
     }
 
     public void saveUserAsync(User user) {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> saveUser(user));
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> saveUser(user));
     }
 
     public void saveUsers(Set<User> users) {
@@ -156,6 +155,6 @@ public class UserDatabase {
     }
 
     public void saveUsersAsync(Set<User> users) {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> saveUsers(users));
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> saveUsers(users));
     }
 }

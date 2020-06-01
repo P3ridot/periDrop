@@ -2,7 +2,7 @@ package me.peridot.peridrop.user;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import org.bukkit.Bukkit;
+import me.peridot.peridrop.PeriDrop;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -14,10 +14,16 @@ import java.util.stream.Collectors;
 
 public class UserCache {
 
+    private final PeriDrop plugin;
+
     private final Map<UUID, User> userMap = new HashMap<>();
     private final Cache<UUID, User> userCache = CacheBuilder.newBuilder()
             .expireAfterWrite(30, TimeUnit.MINUTES)
             .build();
+
+    public UserCache(PeriDrop plugin) {
+        this.plugin = plugin;
+    }
 
     public void removeUser(UUID uuid) {
         User user = userMap.get(uuid);
@@ -39,7 +45,7 @@ public class UserCache {
                 userMap.put(uuid, user = cachedUser);
                 return user;
             }
-            userMap.put(uuid, user = new User(uuid, Bukkit.getPlayer(uuid).getName()));
+            userMap.put(uuid, user = new User(uuid, plugin.getServer().getPlayer(uuid).getName()));
         }
         return user;
     }

@@ -11,7 +11,6 @@ import api.peridot.periapi.utils.replacements.ReplacementUtil;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.data.configuration.PluginConfiguration;
 import me.peridot.peridrop.user.rank.Rank;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -101,7 +100,7 @@ public class RankingInventory implements InventoryProvider {
                                     return SignInput.response().text(ReplacementUtil.replace(config.getColoredStringList("messages.ranking.sign.page-not-exist"), new Replacement("{PAGE}", text)));
                                 }
                                 int finalPageInput = pageInput;
-                                Bukkit.getScheduler().runTaskLater(plugin, () -> plugin.getInventoryManager().getRankingInventory().open(playerSign, finalPageInput - 1), 2L);
+                                plugin.getServer().getScheduler().runTaskLater(plugin, () -> plugin.getInventoryManager().getRankingInventory().open(playerSign, finalPageInput - 1), 2L);
                                 return SignInput.response().close();
                             })
                             .build().open(player);

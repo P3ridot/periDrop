@@ -14,7 +14,6 @@ import me.peridot.peridrop.schedulers.RankingUpdateScheduler;
 import me.peridot.peridrop.user.User;
 import me.peridot.peridrop.user.UserCache;
 import me.peridot.peridrop.user.rank.RankSystem;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -42,7 +41,7 @@ public class PeriDrop extends JavaPlugin {
         databaseManager = new DatabaseManager(this);
         databaseManager.init();
 
-        userCache = new UserCache();
+        userCache = new UserCache(plugin);
         rankSystem = new RankSystem();
 
         periAPI = new PeriAPI(this);
@@ -50,7 +49,7 @@ public class PeriDrop extends JavaPlugin {
 
         initInventoryManager();
 
-        PluginManager pluginManager = Bukkit.getPluginManager();
+        PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new BlockBreakListener(this), this);
         pluginManager.registerEvents(new PlayerJoinListener(this), this);
         pluginManager.registerEvents(new PlayerQuitListener(this), this);
@@ -64,7 +63,7 @@ public class PeriDrop extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
+        for (Player player : getServer().getOnlinePlayers()) {
             User user = userCache.createUser(player);
             getDatabaseManager().getUserDatabase().saveUser(user);
         }

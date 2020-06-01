@@ -3,7 +3,6 @@ package me.peridot.peridrop.data.configuration;
 import api.peridot.periapi.configuration.langapi.LangAPI;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.drop.DropManager;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 
 public class ConfigurationManager {
@@ -43,7 +42,7 @@ public class ConfigurationManager {
                 reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
                 ex.printStackTrace();
-                Bukkit.getPluginManager().disablePlugin(plugin);
+                plugin.getServer().getPluginManager().disablePlugin(plugin);
             }
         }
         return pluginConfiguration;
@@ -55,7 +54,7 @@ public class ConfigurationManager {
                 reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
                 ex.printStackTrace();
-                Bukkit.getPluginManager().disablePlugin(plugin);
+                plugin.getServer().getPluginManager().disablePlugin(plugin);
             }
         }
         return dropConfiguration;
@@ -67,7 +66,7 @@ public class ConfigurationManager {
                 reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
                 ex.printStackTrace();
-                Bukkit.getPluginManager().disablePlugin(plugin);
+                plugin.getServer().getPluginManager().disablePlugin(plugin);
             }
         }
         return dropManager;
@@ -79,7 +78,7 @@ public class ConfigurationManager {
                 reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
                 ex.printStackTrace();
-                Bukkit.getPluginManager().disablePlugin(plugin);
+                plugin.getServer().getPluginManager().disablePlugin(plugin);
             }
         }
         return messagesConfiguration;
@@ -91,7 +90,7 @@ public class ConfigurationManager {
                 reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
                 ex.printStackTrace();
-                Bukkit.getPluginManager().disablePlugin(plugin);
+                plugin.getServer().getPluginManager().disablePlugin(plugin);
             }
         }
         return lang;
