@@ -35,7 +35,7 @@ public class DropInventory implements InventoryProvider {
         content.clear();
         for (Drop drop : dropManager.getDropsList()) {
             boolean disabled = user.isDropDisabled(drop);
-            String status = disabled ? config.getColoredString("messages.drop_status.enabled") : config.getColoredString("messages.drop_status.disabled");
+            String status = disabled ? config.getColoredString("messages.drop_status.disabled") : config.getColoredString("messages.drop_status.enabled");
             String fortune_status = drop.isFortuneAffect() ? config.getColoredString("messages.fortune.enabled") : config.getColoredString("messages.fortune.disabled");
             List<String> lore = drop.isFortuneAffect() ? config.getColoredStringList("inventories.drop.buttons.drop_toogle.with_fortune.lore") : config.getColoredStringList("inventories.drop.buttons.drop_toogle.without_fortune.lore");
             content.addItem(InventoryItem.builder()
