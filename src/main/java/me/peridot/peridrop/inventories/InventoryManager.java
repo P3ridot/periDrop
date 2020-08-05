@@ -4,6 +4,10 @@ import api.peridot.periapi.inventories.CustomInventory;
 import api.peridot.periapi.inventories.PeriInventoryManager;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.data.configuration.PluginConfiguration;
+import me.peridot.peridrop.inventories.storage.DropInventory;
+import me.peridot.peridrop.inventories.storage.MenuInventory;
+import me.peridot.peridrop.inventories.storage.RankingInventory;
+import me.peridot.peridrop.inventories.storage.SettingsInventory;
 
 public class InventoryManager {
 
@@ -19,7 +23,7 @@ public class InventoryManager {
         this.plugin = plugin;
         this.manager = plugin.getPeriAPI().getInventoryManager();
 
-        PluginConfiguration config = plugin.getConfigurations().getPluginConfiguration();
+        PluginConfiguration config = plugin.getPluginConfiguration();
 
         menuInventory = CustomInventory.builder()
                 .plugin(plugin)
@@ -30,7 +34,7 @@ public class InventoryManager {
                 .updateDelay(-1)
                 .build();
 
-        int drop_inventory_rows = (int) Math.ceil((float) plugin.getConfigurations().getDropManager().getDropsList().size() / 9) + 1;
+        int drop_inventory_rows = (int) Math.ceil((float) plugin.getDropsManager().getDropsList().size() / 9) + 1;
         if (drop_inventory_rows > 6) {
             drop_inventory_rows = 6;
         }

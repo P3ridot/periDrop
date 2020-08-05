@@ -1,4 +1,4 @@
-package me.peridot.peridrop.inventories;
+package me.peridot.peridrop.inventories.storage;
 
 import api.peridot.periapi.inventories.InventoryContent;
 import api.peridot.periapi.inventories.items.InventoryItem;
@@ -26,7 +26,7 @@ public class FortuneInventory implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContent content) {
-        PluginConfiguration config = plugin.getConfigurations().getPluginConfiguration();
+        PluginConfiguration config = plugin.getPluginConfiguration();
 
         content.clear();
         for (FortuneDrop fortuneDrop : drop.getFortuneDropsList()) {

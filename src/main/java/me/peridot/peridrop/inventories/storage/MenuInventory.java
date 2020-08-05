@@ -1,4 +1,4 @@
-package me.peridot.peridrop.inventories;
+package me.peridot.peridrop.inventories.storage;
 
 import api.peridot.periapi.inventories.InventoryContent;
 import api.peridot.periapi.inventories.items.InventoryItem;
@@ -18,7 +18,7 @@ public class MenuInventory implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContent content) {
-        PluginConfiguration config = plugin.getConfigurations().getPluginConfiguration();
+        PluginConfiguration config = plugin.getPluginConfiguration();
 
         content.fill(InventoryItem.builder().item(config.getItemBuilder("inventories.menu.buttons.background").clone()).build());
         content.setItem(config.getInt("inventories.menu.buttons.stone.slot"), InventoryItem.builder()

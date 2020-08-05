@@ -1,4 +1,4 @@
-package me.peridot.peridrop.inventories;
+package me.peridot.peridrop.inventories.storage;
 
 import api.peridot.periapi.inventories.InventoryContent;
 import api.peridot.periapi.inventories.items.InventoryItem;
@@ -21,7 +21,7 @@ public class SettingsInventory implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContent content) {
-        PluginConfiguration config = plugin.getConfigurations().getPluginConfiguration();
+        PluginConfiguration config = plugin.getPluginConfiguration();
 
         User user = plugin.getUserCache().createUser(player);
 

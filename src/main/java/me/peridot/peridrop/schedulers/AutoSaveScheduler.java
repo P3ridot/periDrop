@@ -13,7 +13,7 @@ public class AutoSaveScheduler {
     public void start() {
         plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, () -> {
             plugin.getDatabaseManager().getUserDatabase().saveUsers(plugin.getUserCache().getModifiedUsers());
-        }, 0, 20 * plugin.getConfigurations().getPluginConfiguration().getInt("tasks.autosave"));
+        }, 0, 20 * plugin.getPluginConfiguration().getInt("tasks.autosave"));
     }
 
 }

@@ -1,10 +1,10 @@
 messages:
   errors:
-    noplayer.content: "&3periDrop &8» &7Tylko gracz moze uzyc tej komendy!"
+    noplayer.content: "&8» &7Tylko gracz moze uzyc tej komendy!"
     noperm:
       chat:
         send-if-not-player: true
-        content: "&3periDrop &8» &7Nie posiadasz uprawnienia &9{PERMISSION}&7!"
+        content: "&8» &7Nie posiadasz uprawnienia &9{PERMISSION}&7!"
       title:
         enabled: true
         content: "&8» &c&lBrak uprawnien"
@@ -33,10 +33,10 @@ messages:
     configuration_reloaded:
       chat:
         send-if-not-player: true
-        content: "&3periDrop &8» &7Plugin zostal przeladowany!"
+        content: "&3periDrop &8» &7Konfiguracja pluginu zostala przeladowana!"
       actionbar:
         enabled: true
-        content: "&3periDrop &8» &7Plugin zostal przeladowany!"
+        content: "&3periDrop &8» &7Konfiguracja pluginu zostala przeladowana!"
     ranking_update:
       chat:
         send-if-not-player: true

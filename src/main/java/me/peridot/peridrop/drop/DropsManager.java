@@ -1,24 +1,24 @@
 package me.peridot.peridrop.drop;
 
+import api.peridot.periapi.configuration.ConfigurationFile;
 import me.peridot.peridrop.PeriDrop;
-import me.peridot.peridrop.data.configuration.DropConfiguration;
 import org.bukkit.configuration.InvalidConfigurationException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DropManager {
+public class DropsManager {
 
     private final PeriDrop plugin;
 
     private List<Drop> dropsList = new ArrayList<>();
 
-    public DropManager(PeriDrop plugin) {
+    public DropsManager(PeriDrop plugin) {
         this.plugin = plugin;
     }
 
     public void loadDrops() throws InvalidConfigurationException {
-        DropConfiguration dropConfiguration = plugin.getConfigurations().getDropConfiguration();
+        ConfigurationFile dropConfiguration = plugin.getDropsConfiguration();
         DropParser dropParser = new DropParser(plugin);
 
         dropsList = dropParser.parseDrops(dropConfiguration.getYamlConfiguration().getConfigurationSection("drops"));

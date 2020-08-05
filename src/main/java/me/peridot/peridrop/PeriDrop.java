@@ -1,11 +1,17 @@
 package me.peridot.peridrop;
 
 import api.peridot.periapi.PeriAPI;
+import api.peridot.periapi.configuration.ConfigurationFile;
+import api.peridot.periapi.configuration.langapi.LangAPI;
+import lombok.Getter;
 import me.peridot.peridrop.commands.AdminDropCommand;
 import me.peridot.peridrop.commands.DropCommand;
 import me.peridot.peridrop.data.configuration.ConfigurationManager;
+import me.peridot.peridrop.data.configuration.PluginConfiguration;
 import me.peridot.peridrop.data.database.DatabaseManager;
+import me.peridot.peridrop.drop.DropsManager;
 import me.peridot.peridrop.inventories.InventoryManager;
+import me.peridot.peridrop.listeners.AsyncPlayerChatListener;
 import me.peridot.peridrop.listeners.BlockBreakListener;
 import me.peridot.peridrop.listeners.PlayerJoinListener;
 import me.peridot.peridrop.listeners.PlayerQuitListener;
@@ -21,15 +27,26 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PeriDrop extends JavaPlugin {
 
-    private ConfigurationManager configurationManager;
-    private DatabaseManager databaseManager;
-    private UserCache userCache;
-    private RankSystem rankSystem;
+    @Getter
     private PeriAPI periAPI;
+    @Getter
+    private ConfigurationManager configurationManager;
+    @Getter
+    private DatabaseManager databaseManager;
+    @Getter
+    private UserCache userCache;
+    @Getter
+    private RankSystem rankSystem;
+    @Getter
     private InventoryManager inventoryManager;
+
+    private static PeriDrop INSTANCE;
 
     @Override
     public void onEnable() {
+        periAPI = new PeriAPI(this);
+        periAPI.init();
+
         configurationManager = new ConfigurationManager(this);
         try {
             configurationManager.reloadConfigurations();
@@ -41,15 +58,13 @@ public class PeriDrop extends JavaPlugin {
         databaseManager = new DatabaseManager(this);
         databaseManager.init();
 
-        userCache = new UserCache(plugin);
+        userCache = new UserCache(this);
         rankSystem = new RankSystem();
-
-        periAPI = new PeriAPI(this);
-        periAPI.init();
 
         initInventoryManager();
 
         PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(new AsyncPlayerChatListener(this), this);
         pluginManager.registerEvents(new BlockBreakListener(this), this);
         pluginManager.registerEvents(new PlayerJoinListener(this), this);
         pluginManager.registerEvents(new PlayerQuitListener(this), this);
@@ -59,6 +74,8 @@ public class PeriDrop extends JavaPlugin {
 
         new AutoSaveScheduler(this).start();
         new RankingUpdateScheduler(this).start();
+
+        INSTANCE = this;
     }
 
     @Override
@@ -69,31 +86,35 @@ public class PeriDrop extends JavaPlugin {
         }
     }
 
-    public ConfigurationManager getConfigurations() {
-        return configurationManager;
+    public LangAPI getLang() {
+        return this.configurationManager.getLang();
     }
 
-    public DatabaseManager getDatabaseManager() {
-        return databaseManager;
+    public PluginConfiguration getPluginConfiguration() {
+        return this.configurationManager.getPluginConfiguration();
     }
 
-    public UserCache getUserCache() {
-        return userCache;
+    public ConfigurationFile getInventoriesConfiguration() {
+        return this.configurationManager.getInventoriesConfiguration();
     }
 
-    public RankSystem getRankSystem() {
-        return rankSystem;
+    public ConfigurationFile getDropsConfiguration() {
+        return this.configurationManager.getDropsConfiguration();
     }
 
-    public PeriAPI getPeriAPI() {
-        return periAPI;
-    }
-
-    public InventoryManager getInventoryManager() {
-        return inventoryManager;
+    public DropsManager getDropsManager() {
+        return this.configurationManager.getDropsManager();
     }
 
     public void initInventoryManager() {
         this.inventoryManager = new InventoryManager(this);
     }
+
+    /*
+        Only use for plugins hooks
+     */
+    public static PeriDrop getInstanceE() {
+        return INSTANCE;
+    }
+
 }

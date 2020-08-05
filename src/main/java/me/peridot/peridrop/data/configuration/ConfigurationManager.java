@@ -1,8 +1,9 @@
 package me.peridot.peridrop.data.configuration;
 
+import api.peridot.periapi.configuration.ConfigurationFile;
 import api.peridot.periapi.configuration.langapi.LangAPI;
 import me.peridot.peridrop.PeriDrop;
-import me.peridot.peridrop.drop.DropManager;
+import me.peridot.peridrop.drop.DropsManager;
 import org.bukkit.configuration.InvalidConfigurationException;
 
 public class ConfigurationManager {
@@ -11,10 +12,12 @@ public class ConfigurationManager {
 
     private PluginConfiguration pluginConfiguration;
 
-    private DropConfiguration dropConfiguration;
-    private DropManager dropManager;
+    private ConfigurationFile inventoriesConfiguration;
 
-    private MessagesConfiguration messagesConfiguration;
+    private ConfigurationFile dropsConfiguration;
+    private DropsManager dropsManager;
+
+    private ConfigurationFile messagesConfiguration;
     private LangAPI lang;
 
     public ConfigurationManager(PeriDrop plugin) {
@@ -26,12 +29,15 @@ public class ConfigurationManager {
         pluginConfiguration = new PluginConfiguration(plugin);
         pluginConfiguration.reloadConfiguration();
 
-        dropConfiguration = new DropConfiguration(plugin);
-        dropConfiguration.reloadConfiguration();
-        dropManager = new DropManager(plugin);
-        dropManager.loadDrops();
+        inventoriesConfiguration = new ConfigurationFile(this.plugin, "inventories", "inventories");
+        inventoriesConfiguration.reloadConfiguration();
 
-        messagesConfiguration = new MessagesConfiguration(plugin);
+        dropsConfiguration = new ConfigurationFile(this.plugin, "drops", "drops");
+        dropsConfiguration.reloadConfiguration();
+        dropsManager = new DropsManager(plugin);
+        dropsManager.loadDrops();
+
+        messagesConfiguration = new ConfigurationFile(this.plugin, "messages", "messages");
         messagesConfiguration.reloadConfiguration();
         lang = new LangAPI(messagesConfiguration.getYamlConfiguration().getConfigurationSection("messages"));
     }
@@ -48,8 +54,8 @@ public class ConfigurationManager {
         return pluginConfiguration;
     }
 
-    public DropConfiguration getDropConfiguration() {
-        if (dropConfiguration == null) {
+    public ConfigurationFile getInventoriesConfiguration() {
+        if (inventoriesConfiguration == null) {
             try {
                 reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
@@ -57,11 +63,11 @@ public class ConfigurationManager {
                 plugin.getServer().getPluginManager().disablePlugin(plugin);
             }
         }
-        return dropConfiguration;
+        return inventoriesConfiguration;
     }
 
-    public DropManager getDropManager() {
-        if (dropManager == null) {
+    public ConfigurationFile getDropsConfiguration() {
+        if (dropsConfiguration == null) {
             try {
                 reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
@@ -69,10 +75,22 @@ public class ConfigurationManager {
                 plugin.getServer().getPluginManager().disablePlugin(plugin);
             }
         }
-        return dropManager;
+        return dropsConfiguration;
     }
 
-    public MessagesConfiguration getMessagesConfiguration() {
+    public DropsManager getDropsManager() {
+        if (dropsManager == null) {
+            try {
+                reloadConfigurations();
+            } catch (InvalidConfigurationException ex) {
+                ex.printStackTrace();
+                plugin.getServer().getPluginManager().disablePlugin(plugin);
+            }
+        }
+        return dropsManager;
+    }
+
+    public ConfigurationFile getMessagesConfiguration() {
         if (messagesConfiguration == null) {
             try {
                 reloadConfigurations();

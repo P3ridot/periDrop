@@ -19,12 +19,11 @@ public class Rank extends Modifiable implements Comparable<Rank> {
     public Rank(UUID uuid, String identifierName) {
         this.uuid = uuid;
         this.identifierName = identifierName;
+        this.level = PluginConfiguration.ranking_default_level;
     }
 
     public Rank(User user) {
-        this.uuid = user.getUuid();
-        this.identifierName = user.getName();
-        this.level = PluginConfiguration.ranking_default_level;
+        this(user.getUuid(), user.getName());
     }
 
     public UUID getUuid() {
@@ -82,7 +81,7 @@ public class Rank extends Modifiable implements Comparable<Rank> {
                 if (rank.identifierName == null) {
                     return 1;
                 }
-                return rank.identifierName.compareTo(this.identifierName);
+                return this.identifierName.compareTo(rank.identifierName);
             }
             return xc;
         }

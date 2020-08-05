@@ -13,7 +13,7 @@ public class RankingUpdateScheduler {
     public void start() {
         plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, () -> {
             plugin.getDatabaseManager().getRankDatabase().loadRanks();
-        }, 0, 20 * plugin.getConfigurations().getPluginConfiguration().getInt("tasks.ranking-update"));
+        }, 0, 20 * plugin.getPluginConfiguration().getInt("tasks.ranking-update"));
     }
 
 }

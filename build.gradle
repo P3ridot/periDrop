@@ -13,7 +13,6 @@ sourceCompatibility = 1.8
 shadowJar {
     mergeServiceFiles()
     relocate 'api.peridot.periapi', 'me.peridot.peridrop.libs.periapi'
-    relocate 'org.slf4j', 'me.peridot.peridrop.libs.slf4j'
     relocate 'com.zaxxer.hikari', 'me.peridot.peridrop.libs.hikari'
     relocate 'com.udojava.evalex', 'me.peridot.peridrop.libs.evalex'
 }
@@ -28,8 +27,11 @@ repositories {
 }
 
 dependencies {
+    compileOnly "org.projectlombok:lombok:1.18.12"
+    annotationProcessor "org.projectlombok:lombok:1.18.12"
+
     compileOnly "org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT"
     compile "com.zaxxer:HikariCP:3.4.1"
-    compile "com.github.P3ridot:periApi:fde0ad8d71"
+    compile "com.github.P3ridot:periApi:2017bc264b"
     compile "com.udojava:EvalEx:2.1"
 }

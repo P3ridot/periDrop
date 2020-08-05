@@ -1,4 +1,4 @@
-package me.peridot.peridrop.inventories;
+package me.peridot.peridrop.inventories.storage;
 
 import api.peridot.periapi.inventories.CustomInventory;
 import api.peridot.periapi.inventories.InventoryContent;
@@ -10,7 +10,7 @@ import api.peridot.periapi.utils.replacements.ReplacementUtil;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.data.configuration.PluginConfiguration;
 import me.peridot.peridrop.drop.Drop;
-import me.peridot.peridrop.drop.DropManager;
+import me.peridot.peridrop.drop.DropsManager;
 import me.peridot.peridrop.user.User;
 import org.bukkit.entity.Player;
 
@@ -19,6 +19,7 @@ import java.util.List;
 public class DropInventory implements InventoryProvider {
 
     private final PeriDrop plugin;
+
     private final int rows;
 
     public DropInventory(PeriDrop plugin, int rows) {
@@ -29,11 +30,11 @@ public class DropInventory implements InventoryProvider {
     @Override
     public void init(Player player, InventoryContent content) {
         User user = plugin.getUserCache().createUser(player);
-        PluginConfiguration config = plugin.getConfigurations().getPluginConfiguration();
-        DropManager dropManager = plugin.getConfigurations().getDropManager();
+        PluginConfiguration config = plugin.getPluginConfiguration();
+        DropsManager dropsManager = plugin.getDropsManager();
 
         content.clear();
-        for (Drop drop : dropManager.getDropsList()) {
+        for (Drop drop : dropsManager.getDropsList()) {
             boolean disabled = user.isDropDisabled(drop);
             String status = disabled ? config.getColoredString("messages.drop_status.disabled") : config.getColoredString("messages.drop_status.enabled");
             String fortune_status = drop.isFortuneAffect() ? config.getColoredString("messages.fortune.enabled") : config.getColoredString("messages.fortune.disabled");
@@ -77,7 +78,7 @@ public class DropInventory implements InventoryProvider {
         content.setItem(rows, 4, InventoryItem.builder()
                 .item(config.getItemBuilder("inventories.drop.buttons.all_enable").clone())
                 .consumer(event -> {
-                    for (Drop drop : dropManager.getDropsList()) {
+                    for (Drop drop : dropsManager.getDropsList()) {
                         user.setDropDisabled(drop, false);
                     }
                 })
@@ -86,7 +87,7 @@ public class DropInventory implements InventoryProvider {
         content.setItem(rows, 6, InventoryItem.builder()
                 .item(config.getItemBuilder("inventories.drop.buttons.all_disable").clone())
                 .consumer(event -> {
-                    for (Drop drop : dropManager.getDropsList()) {
+                    for (Drop drop : dropsManager.getDropsList()) {
                         user.setDropDisabled(drop, true);
                     }
                 })

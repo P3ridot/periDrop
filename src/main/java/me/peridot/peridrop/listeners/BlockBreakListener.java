@@ -8,7 +8,7 @@ import com.udojava.evalex.Expression;
 import me.peridot.peridrop.PeriDrop;
 import me.peridot.peridrop.data.configuration.PluginConfiguration;
 import me.peridot.peridrop.drop.Drop;
-import me.peridot.peridrop.drop.DropManager;
+import me.peridot.peridrop.drop.DropsManager;
 import me.peridot.peridrop.drop.fortune.FortuneDrop;
 import me.peridot.peridrop.user.SettingsType;
 import me.peridot.peridrop.user.User;
@@ -16,7 +16,6 @@ import me.peridot.peridrop.user.rank.Rank;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -39,9 +38,9 @@ public class BlockBreakListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        PluginConfiguration config = plugin.getConfigurations().getPluginConfiguration();
-        DropManager dropManager = plugin.getConfigurations().getDropManager();
-        LangAPI lang = plugin.getConfigurations().getLang();
+        PluginConfiguration config = plugin.getPluginConfiguration();
+        DropsManager dropsManager = plugin.getDropsManager();
+        LangAPI lang = plugin.getLang();
 
         Player player = event.getPlayer();
         User user = plugin.getUserCache().createUser(player);
@@ -97,9 +96,9 @@ public class BlockBreakListener implements Listener {
             plugin.getRankSystem().update(rank);
         }
 
-        if (dropManager.getDropsList().isEmpty()) return;
+        if (dropsManager.getDropsList().isEmpty()) return;
 
-        for (Drop drop : dropManager.getDropsList()) {
+        for (Drop drop : dropsManager.getDropsList()) {
             float chance = drop.getChance();
 
             int minAmount = drop.getMinAmount();
@@ -148,7 +147,7 @@ public class BlockBreakListener implements Listener {
     }
 
     private int requiredExp(int level, Rank rank) {
-        Expression expression = new Expression(plugin.getConfigurations().getPluginConfiguration().getString("ranking.level-up.required-exp"));
+        Expression expression = new Expression(plugin.getPluginConfiguration().getString("ranking.level-up.required-exp"));
 
         expression.with("level", new BigDecimal(level));
         expression.with("player_position", new BigDecimal(rank.getPosition()));
@@ -168,7 +167,7 @@ public class BlockBreakListener implements Listener {
             if ((100 / (enchantLevel + 1) / 100F) > Math.random()) {
                 if (d == item.getType().getMaxDurability()) {
                     player.getInventory().clear(player.getInventory().getHeldItemSlot());
-                    player.playSound(player.getLocation(), Sound.ITEM_BREAK, 1.0f, 1.0f);
+                    player.playSound(player.getLocation(), Sounds.ITEM_BREAK.bukkitSound(), 1.0f, 1.0f);
                 } else {
                     item.setDurability((short) (d + 1));
                 }

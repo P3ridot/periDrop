@@ -22,7 +22,7 @@ public class AdminDropCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        ConfigurationManager dataManager = plugin.getConfigurations();
+        ConfigurationManager dataManager = plugin.getConfigurationManager();
         LangAPI lang = dataManager.getLang();
         if (!sender.hasPermission("peridrop.cmd.admindrop")) {
             lang.sendMessage(sender, "errors.noperm", new Replacement("{PERMISSION}", "peridrop.cmd.admindrop"));
@@ -61,12 +61,6 @@ public class AdminDropCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    public void registerCommand() {
-        PluginCommand command = plugin.getCommand("admindrop");
-        command.setExecutor(this);
-        command.setTabCompleter(this);
-    }
-
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         String[] arguments = {"help", "reload", "ranking-update"};
@@ -85,4 +79,11 @@ public class AdminDropCommand implements CommandExecutor, TabCompleter {
 
         return completions;
     }
+
+    public void registerCommand() {
+        PluginCommand command = plugin.getCommand("admindrop");
+        command.setExecutor(this);
+        command.setTabCompleter(this);
+    }
+
 }

@@ -1,4 +1,4 @@
-package me.peridot.peridrop.inventories;
+package me.peridot.peridrop.inventories.storage;
 
 import api.peridot.periapi.inventories.InventoryContent;
 import api.peridot.periapi.inventories.Pagination;
@@ -27,7 +27,7 @@ public class RankingInventory implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContent content) {
-        PluginConfiguration config = plugin.getConfigurations().getPluginConfiguration();
+        PluginConfiguration config = plugin.getPluginConfiguration();
 
         Pagination pagination = new Pagination();
         int page = plugin.getInventoryManager().getRankingInventory().getPersonalInventoryData(player).getOpenedPage();
@@ -67,7 +67,7 @@ public class RankingInventory implements InventoryProvider {
 
         content.fillRow(6, InventoryItem.builder().item(config.getItemBuilder("inventories.ranking.buttons.background").clone()).build());
         content.setItem(6, 5, InventoryItem.builder()
-                .item(plugin.getConfigurations().getPluginConfiguration().getItemBuilder("inventories.ranking.buttons.back").clone())
+                .item(plugin.getPluginConfiguration().getItemBuilder("inventories.ranking.buttons.back").clone())
                 .consumer(event -> plugin.getInventoryManager().getMenuInventory().open(player))
                 .build());
 
