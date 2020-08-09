@@ -3,7 +3,6 @@ package me.peridot.peridrop;
 import api.peridot.periapi.PeriAPI;
 import api.peridot.periapi.configuration.ConfigurationFile;
 import api.peridot.periapi.configuration.langapi.LangAPI;
-import lombok.Getter;
 import me.peridot.peridrop.commands.AdminDropCommand;
 import me.peridot.peridrop.commands.DropCommand;
 import me.peridot.peridrop.data.configuration.ConfigurationManager;
@@ -27,17 +26,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PeriDrop extends JavaPlugin {
 
-    @Getter
     private PeriAPI periAPI;
-    @Getter
     private ConfigurationManager configurationManager;
-    @Getter
     private DatabaseManager databaseManager;
-    @Getter
     private UserCache userCache;
-    @Getter
     private RankSystem rankSystem;
-    @Getter
     private InventoryManager inventoryManager;
 
     private static PeriDrop INSTANCE;
@@ -86,6 +79,30 @@ public class PeriDrop extends JavaPlugin {
         }
     }
 
+    public PeriAPI getPeriAPI() {
+        return periAPI;
+    }
+
+    public ConfigurationManager getConfigurationManager() {
+        return configurationManager;
+    }
+
+    public DatabaseManager getDatabaseManager() {
+        return databaseManager;
+    }
+
+    public UserCache getUserCache() {
+        return userCache;
+    }
+
+    public RankSystem getRankSystem() {
+        return rankSystem;
+    }
+
+    public InventoryManager getInventoryManager() {
+        return inventoryManager;
+    }
+
     public LangAPI getLang() {
         return this.configurationManager.getLang();
     }
@@ -113,7 +130,7 @@ public class PeriDrop extends JavaPlugin {
     /*
         Only use for plugins hooks
      */
-    public static PeriDrop getInstanceE() {
+    public static PeriDrop getInstancee() {
         return INSTANCE;
     }
 
