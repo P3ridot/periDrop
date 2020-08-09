@@ -76,4 +76,5 @@ public class RankDatabase {
     public void loadRankAsync(Rank rank) {
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> loadRank(rank));
     }
+
 }

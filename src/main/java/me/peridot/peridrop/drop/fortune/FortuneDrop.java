@@ -33,4 +33,5 @@ public class FortuneDrop {
     public int getMaxAmount() {
         return amount.getValue();
     }
+
 }

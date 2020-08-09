@@ -87,4 +87,5 @@ public class Rank extends Modifiable implements Comparable<Rank> {
         }
         return lc;
     }
+
 }

@@ -23,4 +23,5 @@ public class PlayerQuitListener implements Listener {
         plugin.getRankSystem().update(user);
         plugin.getUserCache().removeUser(player);
     }
+
 }

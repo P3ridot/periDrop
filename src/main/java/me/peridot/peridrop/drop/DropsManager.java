@@ -27,4 +27,5 @@ public class DropsManager {
     public List<Drop> getDropsList() {
         return new ArrayList<>(dropsList);
     }
+
 }

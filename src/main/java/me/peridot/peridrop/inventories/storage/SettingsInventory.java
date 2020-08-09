@@ -1,5 +1,6 @@
 package me.peridot.peridrop.inventories.storage;
 
+import api.peridot.periapi.configuration.ConfigurationFile;
 import api.peridot.periapi.inventories.InventoryContent;
 import api.peridot.periapi.inventories.items.InventoryItem;
 import api.peridot.periapi.inventories.providers.InventoryProvider;
@@ -22,6 +23,7 @@ public class SettingsInventory implements InventoryProvider {
     @Override
     public void init(Player player, InventoryContent content) {
         PluginConfiguration config = plugin.getPluginConfiguration();
+        ConfigurationFile inventoriesConfig = plugin.getInventoriesConfiguration();
 
         User user = plugin.getUserCache().createUser(player);
 
@@ -38,15 +40,15 @@ public class SettingsInventory implements InventoryProvider {
                     .update(true)
                     .build());
         }
-        content.fillRow(2, InventoryItem.builder().item(config.getItemBuilder("inventories.settings.buttons.background").clone()).build());
+        content.fillRow(2, InventoryItem.builder().item(inventoriesConfig.getItemBuilder("settings.buttons.background").clone()).build());
         content.setItem(2, 5, InventoryItem.builder()
-                .item(config.getItemBuilder("inventories.settings.buttons.back").clone())
+                .item(inventoriesConfig.getItemBuilder("settings.buttons.back").clone())
                 .consumer(event -> plugin.getInventoryManager().getMenuInventory().open(player))
                 .build());
     }
 
     @Override
     public void update(Player player, InventoryContent content) {
-
     }
+
 }

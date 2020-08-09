@@ -187,4 +187,5 @@ public class BlockBreakListener implements Listener {
         location.setZ(location.getBlockZ() + 0.5);
         return location;
     }
+
 }

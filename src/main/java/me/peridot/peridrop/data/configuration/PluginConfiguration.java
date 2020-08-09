@@ -1,11 +1,9 @@
 package me.peridot.peridrop.data.configuration;
 
 import api.peridot.periapi.configuration.ConfigurationProvider;
-import api.peridot.periapi.items.ItemParser;
 import api.peridot.periapi.utils.Pair;
 import api.peridot.periapi.utils.simple.ColorUtil;
 import me.peridot.peridrop.PeriDrop;
-import me.peridot.peridrop.user.SettingsType;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -45,19 +43,6 @@ public class PluginConfiguration extends ConfigurationProvider {
         biome_any = ColorUtil.color(configurationSection.getString("messages.biome-any"));
         ranking_default_level = configurationSection.getInt("ranking.default-level");
 
-        SettingsType.COBBLESTONE_DROP.setEnabled(configurationSection.getBoolean("inventories.settings.buttons.cobblestone_drop.enabled"));
-        SettingsType.DROP_NOTIFICATION.setEnabled(configurationSection.getBoolean("inventories.settings.buttons.drop_notification.enabled"));
-        SettingsType.LEVEL_UP_NOTIFICATION.setEnabled(configurationSection.getBoolean("inventories.settings.buttons.level_up_notification.enabled"));
-        if (SettingsType.COBBLESTONE_DROP.isEnabled()) {
-            SettingsType.COBBLESTONE_DROP.setItem(ItemParser.parseItemBuilder(configurationSection.getConfigurationSection("inventories.settings.buttons.cobblestone_drop")));
-        }
-        if (SettingsType.DROP_NOTIFICATION.isEnabled()) {
-            SettingsType.DROP_NOTIFICATION.setItem(ItemParser.parseItemBuilder(configurationSection.getConfigurationSection("inventories.settings.buttons.drop_notification")));
-        }
-        if (SettingsType.LEVEL_UP_NOTIFICATION.isEnabled()) {
-            SettingsType.LEVEL_UP_NOTIFICATION.setItem(ItemParser.parseItemBuilder(configurationSection.getConfigurationSection("inventories.settings.buttons.level_up_notification")));
-        }
-
         blockedDropsMap.clear();
         for (String string : configurationSection.getStringList("blocked-drops")) {
             String[] splited = string.split(":", 2);
@@ -92,4 +77,5 @@ public class PluginConfiguration extends ConfigurationProvider {
             }
         }
     }
+
 }

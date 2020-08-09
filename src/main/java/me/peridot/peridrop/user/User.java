@@ -86,4 +86,5 @@ public class User extends Modifiable {
         this.rank = rank;
         setModified(true);
     }
+
 }

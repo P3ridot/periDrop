@@ -157,4 +157,5 @@ public class UserDatabase {
     public void saveUsersAsync(Set<User> users) {
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> saveUsers(users));
     }
+
 }

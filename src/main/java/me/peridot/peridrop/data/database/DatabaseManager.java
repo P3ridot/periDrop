@@ -120,4 +120,5 @@ public class DatabaseManager {
     public RankDatabase getRankDatabase() {
         return rankDatabase;
     }
+
 }

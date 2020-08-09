@@ -171,15 +171,4 @@ inventories:
           - "&8» &7Doswiadzenie: &9{XP}"
       empty-rank:
         material: AIR
-  blocked-drops:
-    - EMERALD_ORE:TRUE
-    - DIAMOND_ORE:TRUE
-    - GOLD_ORE:TRUE
-    - LAPIS_ORE:TRUE
-    - REDSTONE_ORE:TRUE
-    - IRON_ORE:TRUE
-    - COAL_ORE:TRUE
-    - SPONGE:FALSE
-  drop-exp:
-    - "STONE:4-6"
-    - "OBSIDIAN:8-10"
+

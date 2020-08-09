@@ -37,4 +37,5 @@ public class DropCommand implements CommandExecutor {
         PluginCommand command = plugin.getCommand("drop");
         command.setExecutor(this);
     }
+
 }

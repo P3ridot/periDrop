@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FortuneDropParser {
+
     public FortuneDrop parseFortuneDrop(ConfigurationSection configurationSection) throws InvalidConfigurationException {
         int fortuneLevel = 0;
         try {
@@ -60,4 +61,5 @@ public class FortuneDropParser {
 
         return fortuneDropsList;
     }
+
 }

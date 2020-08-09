@@ -1,5 +1,6 @@
 package me.peridot.peridrop.inventories.storage;
 
+import api.peridot.periapi.configuration.ConfigurationFile;
 import api.peridot.periapi.inventories.InventoryContent;
 import api.peridot.periapi.inventories.items.InventoryItem;
 import api.peridot.periapi.inventories.providers.InventoryProvider;
@@ -26,11 +27,11 @@ public class FortuneInventory implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContent content) {
-        PluginConfiguration config = plugin.getPluginConfiguration();
+        ConfigurationFile inventoriesConfig = plugin.getInventoriesConfiguration();
 
         content.clear();
         for (FortuneDrop fortuneDrop : drop.getFortuneDropsList()) {
-            ItemBuilder item = config.getItemBuilder("inventories.fortune.buttons.fortune").clone();
+            ItemBuilder item = inventoriesConfig.getItemBuilder("fortune.buttons.fortune").clone();
             item.replaceInName(new Replacement("{FORTUNE-LEVEL}", fortuneDrop.getFortuneLevel()),
                     new Replacement("{CHANCE}", PluginConfiguration.decimalFormat.format(fortuneDrop.getChance() * 100F)),
                     new Replacement("{OLD-CHANCE}", PluginConfiguration.decimalFormat.format(drop.getChance() * 100F)),
@@ -52,16 +53,16 @@ public class FortuneInventory implements InventoryProvider {
                     new Replacement("{DIFFERENCE-MIN-AMOUNT}", Math.abs(fortuneDrop.getMinAmount() - drop.getMinAmount())),
                     new Replacement("{DIFFERENCE-MAX-AMOUNT}", Math.abs(fortuneDrop.getMaxAmount() - drop.getMaxAmount())));
 
-            if (config.getBoolean("inventories.fortune.buttons.fortune.enchant_with_fortune")) {
+            if (inventoriesConfig.getBoolean("fortune.buttons.fortune.enchant_with_fortune")) {
                 item.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, fortuneDrop.getFortuneLevel());
             }
             content.addItem(InventoryItem.builder()
                     .item(item.build())
                     .build());
         }
-        content.fillRow(rows, InventoryItem.builder().item(config.getItemBuilder("inventories.fortune.buttons.background").clone()).build());
+        content.fillRow(rows, InventoryItem.builder().item(inventoriesConfig.getItemBuilder("fortune.buttons.background").clone()).build());
         content.setItem(rows, 5, InventoryItem.builder()
-                .item(config.getItemBuilder("inventories.fortune.buttons.back").clone().build())
+                .item(inventoriesConfig.getItemBuilder("fortune.buttons.back").clone().build())
                 .consumer(event -> plugin.getInventoryManager().getDropInventory().open(player))
                 .build());
     }
@@ -69,4 +70,5 @@ public class FortuneInventory implements InventoryProvider {
     @Override
     public void update(Player player, InventoryContent content) {
     }
+
 }
