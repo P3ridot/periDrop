@@ -19,22 +19,23 @@ public class DropCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        LangAPI lang = plugin.getLang();
+        LangAPI lang = this.plugin.getLang();
         if (!(sender instanceof Player)) {
             lang.sendSimpleMessage(sender, "errors.noplayer");
             return true;
         }
         Player player = (Player) sender;
+
         if (!player.hasPermission("peridrop.cmd.drop")) {
             lang.sendMessage(sender, "errors.noperm", new Replacement("{PERMISSION}", "peridrop.cmd.drop"));
             return true;
         }
-        plugin.getInventoryManager().getMenuInventory().open(player);
+        this.plugin.getInventoryManager().getMenuInventory().open(player);
         return true;
     }
 
     public void registerCommand() {
-        PluginCommand command = plugin.getCommand("drop");
+        PluginCommand command = this.plugin.getCommand("drop");
         command.setExecutor(this);
     }
 

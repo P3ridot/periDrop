@@ -25,11 +25,11 @@ public class InventoryManager {
         this.manager = plugin.getPeriAPI().getInventoryManager();
 
         ConfigurationFile inventoriesConfig = plugin.getInventoriesConfiguration();
-        reloadSettingsConfiguration(inventoriesConfig);
+        this.reloadSettingsConfiguration(inventoriesConfig);
 
-        menuInventory = CustomInventory.builder()
+        this.menuInventory = CustomInventory.builder()
                 .plugin(plugin)
-                .manager(manager)
+                .manager(this.manager)
                 .provider(new MenuInventory(plugin))
                 .rows(inventoriesConfig.getInt("menu.size"))
                 .title(inventoriesConfig.getColoredString("menu.title"))
@@ -40,27 +40,27 @@ public class InventoryManager {
         if (drop_inventory_rows > 6) {
             drop_inventory_rows = 6;
         }
-        dropInventory = CustomInventory.builder()
+        this.dropInventory = CustomInventory.builder()
                 .plugin(plugin)
-                .manager(manager)
+                .manager(this.manager)
                 .provider(new DropInventory(plugin, drop_inventory_rows))
                 .rows(drop_inventory_rows)
                 .title(inventoriesConfig.getColoredString("drop.title"))
                 .updateDelay(-1)
                 .build();
 
-        settingsInventory = CustomInventory.builder()
+        this.settingsInventory = CustomInventory.builder()
                 .plugin(plugin)
-                .manager(manager)
+                .manager(this.manager)
                 .provider(new SettingsInventory(plugin))
                 .rows(2)
                 .title(inventoriesConfig.getColoredString("settings.title"))
                 .updateDelay(-1)
                 .build();
 
-        rankingInventory = CustomInventory.builder()
+        this.rankingInventory = CustomInventory.builder()
                 .plugin(plugin)
-                .manager(manager)
+                .manager(this.manager)
                 .provider(new RankingInventory(plugin))
                 .rows(6)
                 .title(inventoriesConfig.getColoredString("ranking.title"))
@@ -84,19 +84,19 @@ public class InventoryManager {
     }
 
     public CustomInventory getMenuInventory() {
-        return menuInventory;
+        return this.menuInventory;
     }
 
     public CustomInventory getDropInventory() {
-        return dropInventory;
+        return this.dropInventory;
     }
 
     public CustomInventory getSettingsInventory() {
-        return settingsInventory;
+        return this.settingsInventory;
     }
 
     public CustomInventory getRankingInventory() {
-        return rankingInventory;
+        return this.rankingInventory;
     }
 
 }

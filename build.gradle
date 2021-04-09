@@ -23,12 +23,12 @@ repositories {
     maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     maven { url "https://mvnrepository.com/artifact/com.zaxxer/HikariCP" }
-    maven { url "https://jitpack.io" }
+    maven { url "https://repo.titanvale.net/public/" }
 }
 
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT"
     compile "com.zaxxer:HikariCP:3.4.1"
-    compile "com.github.P3ridot:periApi:ac62407f93"
+    compile "api.peridot:periAPI:1.2.6"
     compile "com.udojava:EvalEx:2.1"
 }

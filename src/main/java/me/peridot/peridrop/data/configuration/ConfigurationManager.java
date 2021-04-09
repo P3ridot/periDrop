@@ -25,93 +25,93 @@ public class ConfigurationManager {
     }
 
     public void reloadConfigurations() throws InvalidConfigurationException {
-        plugin.saveDefaultConfig();
-        pluginConfiguration = new PluginConfiguration(plugin);
-        pluginConfiguration.reloadConfiguration();
+        this.plugin.saveDefaultConfig();
+        this.pluginConfiguration = new PluginConfiguration(this.plugin);
+        this.pluginConfiguration.reloadConfiguration();
 
-        inventoriesConfiguration = new ConfigurationFile(this.plugin, "inventories", "inventories");
-        inventoriesConfiguration.reloadConfiguration();
+        this.inventoriesConfiguration = new ConfigurationFile(this.plugin, "inventories", "inventories");
+        this.inventoriesConfiguration.reloadConfiguration();
 
-        dropsConfiguration = new ConfigurationFile(this.plugin, "drops", "drops");
-        dropsConfiguration.reloadConfiguration();
-        dropsManager = new DropsManager(plugin);
-        dropsManager.loadDrops();
+        this.dropsConfiguration = new ConfigurationFile(this.plugin, "drops", "drops");
+        this.dropsConfiguration.reloadConfiguration();
+        this.dropsManager = new DropsManager(this.plugin);
+        this.dropsManager.loadDrops();
 
-        messagesConfiguration = new ConfigurationFile(this.plugin, "messages", "messages");
-        messagesConfiguration.reloadConfiguration();
-        lang = new LangAPI(messagesConfiguration.getYamlConfiguration().getConfigurationSection("messages"));
+        this.messagesConfiguration = new ConfigurationFile(this.plugin, "messages", "messages");
+        this.messagesConfiguration.reloadConfiguration();
+        this.lang = new LangAPI(this.messagesConfiguration.getYamlConfiguration().getConfigurationSection("messages"));
     }
 
     public PluginConfiguration getPluginConfiguration() {
-        if (pluginConfiguration == null) {
+        if (this.pluginConfiguration == null) {
             try {
-                reloadConfigurations();
+                this.reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
                 ex.printStackTrace();
-                plugin.getServer().getPluginManager().disablePlugin(plugin);
+                this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
             }
         }
-        return pluginConfiguration;
+        return this.pluginConfiguration;
     }
 
     public ConfigurationFile getInventoriesConfiguration() {
-        if (inventoriesConfiguration == null) {
+        if (this.inventoriesConfiguration == null) {
             try {
-                reloadConfigurations();
+                this.reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
                 ex.printStackTrace();
-                plugin.getServer().getPluginManager().disablePlugin(plugin);
+                this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
             }
         }
-        return inventoriesConfiguration;
+        return this.inventoriesConfiguration;
     }
 
     public ConfigurationFile getDropsConfiguration() {
-        if (dropsConfiguration == null) {
+        if (this.dropsConfiguration == null) {
             try {
-                reloadConfigurations();
+                this.reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
                 ex.printStackTrace();
-                plugin.getServer().getPluginManager().disablePlugin(plugin);
+                this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
             }
         }
-        return dropsConfiguration;
+        return this.dropsConfiguration;
     }
 
     public DropsManager getDropsManager() {
-        if (dropsManager == null) {
+        if (this.dropsManager == null) {
             try {
-                reloadConfigurations();
+                this.reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
                 ex.printStackTrace();
-                plugin.getServer().getPluginManager().disablePlugin(plugin);
+                this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
             }
         }
-        return dropsManager;
+        return this.dropsManager;
     }
 
     public ConfigurationFile getMessagesConfiguration() {
-        if (messagesConfiguration == null) {
+        if (this.messagesConfiguration == null) {
             try {
-                reloadConfigurations();
+                this.reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
                 ex.printStackTrace();
-                plugin.getServer().getPluginManager().disablePlugin(plugin);
+                this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
             }
         }
-        return messagesConfiguration;
+        return this.messagesConfiguration;
     }
 
     public LangAPI getLang() {
-        if (lang == null) {
+        if (this.lang == null) {
             try {
-                reloadConfigurations();
+                this.reloadConfigurations();
             } catch (InvalidConfigurationException ex) {
                 ex.printStackTrace();
-                plugin.getServer().getPluginManager().disablePlugin(plugin);
+                this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
             }
         }
-        return lang;
+        return this.lang;
     }
 
 }

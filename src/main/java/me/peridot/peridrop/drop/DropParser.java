@@ -123,7 +123,7 @@ public class DropParser {
         for (String key : configurationSection.getKeys(false)) {
             ConfigurationSection keyConfigurationSection = configurationSection.getConfigurationSection(key);
 
-            Drop drop = parseDrop(keyConfigurationSection);
+            Drop drop = this.parseDrop(keyConfigurationSection);
 
             if (drop != null) {
                 dropsList.add(drop);

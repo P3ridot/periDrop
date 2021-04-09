@@ -25,66 +25,66 @@ public class User extends Modifiable {
     }
 
     public UUID getUuid() {
-        return uuid;
+        return this.uuid;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public List<Drop> getDisabledDrops() {
-        return new ArrayList<>(disabledDrops);
+        return new ArrayList<>(this.disabledDrops);
     }
 
     public boolean isDropDisabled(Drop drop) {
-        return disabledDrops.contains(drop);
+        return this.disabledDrops.contains(drop);
     }
 
     public void setDropDisabled(Drop drop, boolean disabled) {
-        if (disabled && isDropDisabled(drop) || !disabled && !isDropDisabled(drop)) return;
+        if (disabled && this.isDropDisabled(drop) || !disabled && !this.isDropDisabled(drop)) return;
 
-        if (disabled && !isDropDisabled(drop)) {
-            disabledDrops.add(drop);
-        } else if (!disabled && isDropDisabled(drop)) {
-            disabledDrops.remove(drop);
+        if (disabled && !this.isDropDisabled(drop)) {
+            this.disabledDrops.add(drop);
+        } else if (!disabled && this.isDropDisabled(drop)) {
+            this.disabledDrops.remove(drop);
         }
-        setModified(true);
+        this.setModified(true);
     }
 
     public void toggleDrop(Drop drop) {
-        setDropDisabled(drop, !isDropDisabled(drop));
+        this.setDropDisabled(drop, !this.isDropDisabled(drop));
     }
 
     public List<SettingsType> getDisabledSettings() {
-        return new ArrayList<>(disabledSettings);
+        return new ArrayList<>(this.disabledSettings);
     }
 
     public boolean isSettingDisabled(SettingsType type) {
-        return disabledSettings.contains(type);
+        return this.disabledSettings.contains(type);
     }
 
     public void setSettingDisabled(SettingsType type, boolean disabled) {
-        if (disabled && isSettingDisabled(type) || !disabled && !isSettingDisabled(type)) return;
+        if (disabled && this.isSettingDisabled(type) || !disabled && !this.isSettingDisabled(type)) return;
 
-        if (disabled && !isSettingDisabled(type)) {
-            disabledSettings.add(type);
-        } else if (!disabled && isSettingDisabled(type)) {
-            disabledSettings.remove(type);
+        if (disabled && !this.isSettingDisabled(type)) {
+            this.disabledSettings.add(type);
+        } else if (!disabled && this.isSettingDisabled(type)) {
+            this.disabledSettings.remove(type);
         }
-        setModified(true);
+        this.setModified(true);
     }
 
     public void toggleSetting(SettingsType type) {
-        setSettingDisabled(type, !isSettingDisabled(type));
+        this.setSettingDisabled(type, !this.isSettingDisabled(type));
     }
 
     public Rank getRank() {
-        return rank;
+        return this.rank;
     }
 
     public void setRank(Rank rank) {
         this.rank = rank;
-        setModified(true);
+        this.setModified(true);
     }
 
 }

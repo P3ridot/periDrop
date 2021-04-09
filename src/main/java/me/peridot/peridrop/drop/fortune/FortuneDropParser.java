@@ -52,7 +52,7 @@ public class FortuneDropParser {
         for (String key : configurationSection.getKeys(false)) {
             ConfigurationSection keyConfigurationSection = configurationSection.getConfigurationSection(key);
 
-            FortuneDrop fortuneDrop = parseFortuneDrop(keyConfigurationSection);
+            FortuneDrop fortuneDrop = this.parseFortuneDrop(keyConfigurationSection);
 
             if (fortuneDrop != null) {
                 fortuneDropsList.add(fortuneDrop);

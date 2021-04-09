@@ -14,24 +14,21 @@ import java.sql.SQLException;
 public class DatabaseManager {
 
     private final PeriDrop plugin;
-
+    private final UserDatabase userDatabase;
+    private final RankDatabase rankDatabase;
     public HikariDataSource database;
-
     public boolean useMysql;
     public String tableName;
     public int batchLength;
 
-    private final UserDatabase userDatabase;
-    private final RankDatabase rankDatabase;
-
     public DatabaseManager(PeriDrop plugin) {
         this.plugin = plugin;
-        userDatabase = new UserDatabase(plugin, this);
-        rankDatabase = new RankDatabase(plugin, this);
+        this.userDatabase = new UserDatabase(plugin, this);
+        this.rankDatabase = new RankDatabase(plugin, this);
     }
 
     public void init() {
-        FileConfiguration configuration = plugin.getConfig();
+        FileConfiguration configuration = this.plugin.getConfig();
         ConfigurationSection configurationSection = configuration.getConfigurationSection("config.database");
 
         this.useMysql = configurationSection.getString("type").equalsIgnoreCase("MYSQL");
@@ -40,7 +37,7 @@ public class DatabaseManager {
 
         this.database = new HikariDataSource();
 
-        if (useMysql) {
+        if (this.useMysql) {
             String hostname = configurationSection.getString("mysql.hostname");
             String port = configurationSection.getString("mysql.port");
             String database = configurationSection.getString("mysql.database");
@@ -64,7 +61,7 @@ public class DatabaseManager {
             } catch (Exception ex) {
                 ex.printStackTrace();
                 this.plugin.getLogger().severe("Failed to initialize SQLite driver!");
-                plugin.getServer().getPluginManager().disablePlugin(plugin);
+                this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
             }
 
             File sqliteFile = new File(this.plugin.getDataFolder(), configurationSection.getString("sqlite.fileName"));
@@ -72,12 +69,12 @@ public class DatabaseManager {
                 try {
                     if (!sqliteFile.createNewFile()) {
                         this.plugin.getLogger().severe("Failed to create SQLite database file!");
-                        plugin.getServer().getPluginManager().disablePlugin(plugin);
+                        this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
                     }
                 } catch (IOException exception) {
                     exception.printStackTrace();
                     this.plugin.getLogger().severe("Failed to create SQLite database file!");
-                    plugin.getServer().getPluginManager().disablePlugin(plugin);
+                    this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
                 }
             }
 
@@ -90,12 +87,12 @@ public class DatabaseManager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             this.plugin.getLogger().severe("Test database connection failed!");
-            plugin.getServer().getPluginManager().disablePlugin(plugin);
+            this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
         }
     }
 
     public void initTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS `" + tableName +
+        String sql = "CREATE TABLE IF NOT EXISTS `" + this.tableName +
                 "` (`uuid` VARCHAR(36) NOT NULL," +
                 "`name` TEXT NOT NULL," +
                 "`level` INT NOT NULL," +
@@ -109,16 +106,16 @@ public class DatabaseManager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             this.plugin.getLogger().severe("Failed to create database table!");
-            plugin.getServer().getPluginManager().disablePlugin(plugin);
+            this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
         }
     }
 
     public UserDatabase getUserDatabase() {
-        return userDatabase;
+        return this.userDatabase;
     }
 
     public RankDatabase getRankDatabase() {
-        return rankDatabase;
+        return this.rankDatabase;
     }
 
 }

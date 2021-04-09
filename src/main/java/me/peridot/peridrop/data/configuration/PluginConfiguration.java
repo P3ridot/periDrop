@@ -15,17 +15,14 @@ import java.util.Map;
 
 public class PluginConfiguration extends ConfigurationProvider {
 
-    private final PeriDrop plugin;
-
     public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     public static DecimalFormat decimalFormat = new DecimalFormat("#.00");
-
     public static String tool_any;
     public static String biome_any;
     public static int ranking_default_level;
-
     public static Map<Material, Boolean> blockedDropsMap = new HashMap<>();
     public static Map<Material, Pair<Integer, Integer>> dropExpMap = new HashMap<>();
+    private final PeriDrop plugin;
 
     public PluginConfiguration(PeriDrop plugin) {
         super(plugin.getConfig().getConfigurationSection("config"));
@@ -33,7 +30,7 @@ public class PluginConfiguration extends ConfigurationProvider {
     }
 
     public void reloadConfiguration() {
-        FileConfiguration configuration = plugin.getConfig();
+        FileConfiguration configuration = this.plugin.getConfig();
         ConfigurationSection configurationSection = configuration.getConfigurationSection("config");
 
         dateFormat = DateTimeFormatter.ofPattern(configurationSection.getString("format.date"));
@@ -68,7 +65,7 @@ public class PluginConfiguration extends ConfigurationProvider {
                     maxRange = Integer.parseInt(amountRangeSplited[1]);
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    plugin.getLogger().severe("Invalid range value(s)");
+                    this.plugin.getLogger().severe("Invalid range value(s)");
                     continue;
                 }
 

@@ -27,15 +27,15 @@ public class Rank extends Modifiable implements Comparable<Rank> {
     }
 
     public UUID getUuid() {
-        return uuid;
+        return this.uuid;
     }
 
     public String getIdentifierName() {
-        return identifierName;
+        return this.identifierName;
     }
 
     public int getPosition() {
-        return position;
+        return this.position;
     }
 
     public void setPosition(int position) {
@@ -43,31 +43,31 @@ public class Rank extends Modifiable implements Comparable<Rank> {
     }
 
     public int getXp() {
-        return xp;
+        return this.xp;
     }
 
     public void setXp(int xp) {
         this.xp = xp;
-        setModified(true);
+        this.setModified(true);
     }
 
     public void changeXp(int change) {
         this.xp = Math.max(0, this.xp + change);
-        setModified(true);
+        this.setModified(true);
     }
 
     public int getLevel() {
-        return level;
+        return this.level;
     }
 
     public void setLevel(int level) {
         this.level = level;
-        setModified(true);
+        this.setModified(true);
     }
 
     public void changeLevel(int change) {
         this.level = Math.max(0, this.level + change);
-        setModified(true);
+        this.setModified(true);
     }
 
     public int compareTo(Rank rank) {

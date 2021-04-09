@@ -28,11 +28,11 @@ public class RankingInventory implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContent content) {
-        PluginConfiguration config = plugin.getPluginConfiguration();
-        ConfigurationFile inventoriesConfig = plugin.getInventoriesConfiguration();
+        PluginConfiguration config = this.plugin.getPluginConfiguration();
+        ConfigurationFile inventoriesConfig = this.plugin.getInventoriesConfiguration();
 
         Pagination pagination = new Pagination();
-        int page = plugin.getInventoryManager().getRankingInventory().getPersonalInventoryData(player).getOpenedPage();
+        int page = this.plugin.getInventoryManager().getRankingInventory().getPersonalInventoryData(player).getOpenedPage();
 
         content.clear();
         content.fillRow(1, InventoryItem.builder().item(inventoriesConfig.getItemBuilder("ranking.buttons.background").clone()).build());
@@ -41,7 +41,7 @@ public class RankingInventory implements InventoryProvider {
 
         boolean usePlayerAsSkullOwner = inventoriesConfig.getBoolean("ranking.buttons.rank.use_player_as_skull_owner");
 
-        for (Rank rank : plugin.getRankSystem().getRanksList()) {
+        for (Rank rank : this.plugin.getRankSystem().getRanksList()) {
             ItemBuilder item = inventoriesConfig.getItemBuilder("ranking.buttons.rank").clone();
             item.replaceInName(new Replacement("{NAME}", rank.getIdentifierName()),
                     new Replacement("{POSITION}", rank.getPosition() + 1),
@@ -76,7 +76,7 @@ public class RankingInventory implements InventoryProvider {
         content.fillRow(6, InventoryItem.builder().item(inventoriesConfig.getItemBuilder("ranking.buttons.background").clone()).build());
         content.setItem(6, 5, InventoryItem.builder()
                 .item(inventoriesConfig.getItemBuilder("ranking.buttons.back").clone())
-                .consumer(event -> plugin.getInventoryManager().getMenuInventory().open(player))
+                .consumer(event -> this.plugin.getInventoryManager().getMenuInventory().open(player))
                 .build());
 
         ItemBuilder currentPage = inventoriesConfig.getItemBuilder("ranking.buttons.current-page").clone();
@@ -89,8 +89,8 @@ public class RankingInventory implements InventoryProvider {
                 .item(currentPage)
                 .consumer(event -> {
                     SignInput.builder()
-                            .plugin(plugin)
-                            .text(inventoriesConfig.getColoredStringList("messages.ranking.sign.default-text"))
+                            .plugin(this.plugin)
+                            .text(config.getColoredStringList("messages.ranking.sign.default-text"))
                             .completeFunction((playerSign, text) -> {
                                 if (text[0] == null || text[0].isEmpty()) {
                                     return SignInput.response().close();
@@ -108,7 +108,7 @@ public class RankingInventory implements InventoryProvider {
                                     return SignInput.response().text(ReplacementUtil.replace(config.getColoredStringList("messages.ranking.sign.page-not-exist"), new Replacement("{PAGE}", text)));
                                 }
                                 int finalPageInput = pageInput;
-                                plugin.getServer().getScheduler().runTaskLater(plugin, () -> plugin.getInventoryManager().getRankingInventory().open(playerSign, finalPageInput - 1), 2L);
+                                this.plugin.getServer().getScheduler().runTaskLater(this.plugin, () -> this.plugin.getInventoryManager().getRankingInventory().open(playerSign, finalPageInput - 1), 2L);
                                 return SignInput.response().close();
                             })
                             .build().open(player);
@@ -119,7 +119,7 @@ public class RankingInventory implements InventoryProvider {
             content.setItem(1, 3, InventoryItem.builder()
                     .item(inventoriesConfig.getItemBuilder("ranking.buttons.previous-page").clone())
                     .consumer(event -> {
-                        plugin.getInventoryManager().getRankingInventory().getPersonalInventoryData(player).setOpenedPage(page - 1);
+                        this.plugin.getInventoryManager().getRankingInventory().getPersonalInventoryData(player).setOpenedPage(page - 1);
                     })
                     .update(true)
                     .build());
@@ -131,7 +131,7 @@ public class RankingInventory implements InventoryProvider {
             content.setItem(1, 7, InventoryItem.builder()
                     .item(inventoriesConfig.getItemBuilder("ranking.buttons.next-page").clone())
                     .consumer(event -> {
-                        plugin.getInventoryManager().getRankingInventory().getPersonalInventoryData(player).setOpenedPage(page + 1);
+                        this.plugin.getInventoryManager().getRankingInventory().getPersonalInventoryData(player).setOpenedPage(page + 1);
                     })
                     .update(true)
                     .build());

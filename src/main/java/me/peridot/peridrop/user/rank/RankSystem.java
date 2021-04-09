@@ -13,24 +13,24 @@ public class RankSystem {
     protected NavigableSet<Rank> ranksSet = new TreeSet<>(Collections.reverseOrder());
 
     public void update(User user) {
-        update(user.getRank());
+        this.update(user.getRank());
     }
 
     public void update(Rank rank) {
         this.ranksSet.remove(rank);
         this.ranksSet.add(rank);
 
-        ranksSet.forEach(rankFromSet -> {
-            rankFromSet.setPosition(getPosition(rankFromSet));
+        this.ranksSet.forEach(rankFromSet -> {
+            rankFromSet.setPosition(this.getPosition(rankFromSet));
         });
     }
 
     public void clear() {
-        ranksSet.clear();
+        this.ranksSet.clear();
     }
 
     public NavigableSet<Rank> getRanksList() {
-        return ranksSet;
+        return this.ranksSet;
     }
 
     public Rank getRank(int position) {

@@ -4,12 +4,12 @@ public abstract class Modifiable {
 
     private boolean modified = false;
 
-    public void setModified(boolean modified) {
-        this.modified = modified;
+    public boolean isModified() {
+        return this.modified;
     }
 
-    public boolean isModified() {
-        return modified;
+    public void setModified(boolean modified) {
+        this.modified = modified;
     }
 
 }

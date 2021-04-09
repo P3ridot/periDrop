@@ -22,7 +22,7 @@ public class AdminDropCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        ConfigurationManager dataManager = plugin.getConfigurationManager();
+        ConfigurationManager dataManager = this.plugin.getConfigurationManager();
         LangAPI lang = dataManager.getLang();
         if (!sender.hasPermission("peridrop.cmd.admindrop")) {
             lang.sendMessage(sender, "errors.noperm", new Replacement("{PERMISSION}", "peridrop.cmd.admindrop"));
@@ -40,12 +40,12 @@ public class AdminDropCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
             try {
-                plugin.reloadConfig();
+                this.plugin.reloadConfig();
                 dataManager.reloadConfigurations();
-                plugin.initInventoryManager();
+                this.plugin.initInventoryManager();
             } catch (InvalidConfigurationException ex) {
                 ex.printStackTrace();
-                plugin.getServer().getPluginManager().disablePlugin(plugin);
+                this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
             }
             lang.sendMessage(sender, "admindrop.configuration_reloaded");
         } else if (args[0].equalsIgnoreCase("rank-update") || args[0].equalsIgnoreCase("ranking-update")) {
@@ -53,7 +53,7 @@ public class AdminDropCommand implements CommandExecutor, TabCompleter {
                 lang.sendMessage(sender, "errors.noperm", new Replacement("{PERMISSION}", "peridrop.cmd.admindrop.ranking-update"));
                 return true;
             }
-            plugin.getDatabaseManager().getRankDatabase().loadRanksAsync();
+            this.plugin.getDatabaseManager().getRankDatabase().loadRanksAsync();
             lang.sendMessage(sender, "admindrop.ranking_update");
         } else {
             lang.sendMessage(sender, "admindrop.help", new Replacement("{LABEL}", label));
@@ -81,7 +81,7 @@ public class AdminDropCommand implements CommandExecutor, TabCompleter {
     }
 
     public void registerCommand() {
-        PluginCommand command = plugin.getCommand("admindrop");
+        PluginCommand command = this.plugin.getCommand("admindrop");
         command.setExecutor(this);
         command.setTabCompleter(this);
     }

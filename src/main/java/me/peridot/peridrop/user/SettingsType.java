@@ -16,7 +16,7 @@ public enum SettingsType {
     }
 
     public ItemBuilder getItem() {
-        return item.clone();
+        return this.item.clone();
     }
 
     public void setItem(ItemBuilder item) {
@@ -24,7 +24,7 @@ public enum SettingsType {
     }
 
     public boolean isEnabled() {
-        return enabled;
+        return this.enabled;
     }
 
     public void setEnabled(boolean enabled) {

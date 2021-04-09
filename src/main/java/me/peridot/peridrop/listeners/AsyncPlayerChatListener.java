@@ -22,7 +22,7 @@ public class AsyncPlayerChatListener implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        User user = plugin.getUserCache().createUser(player);
+        User user = this.plugin.getUserCache().createUser(player);
         Rank rank = user.getRank();
 
         String format = event.getFormat();

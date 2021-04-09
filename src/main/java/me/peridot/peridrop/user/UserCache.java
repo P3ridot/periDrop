@@ -26,36 +26,36 @@ public class UserCache {
     }
 
     public void removeUser(UUID uuid) {
-        User user = userMap.get(uuid);
+        User user = this.userMap.get(uuid);
         if (user != null) {
-            userCache.put(uuid, user);
+            this.userCache.put(uuid, user);
         }
-        userMap.remove(uuid);
+        this.userMap.remove(uuid);
     }
 
     public void removeUser(Player player) {
-        removeUser(player.getUniqueId());
+        this.removeUser(player.getUniqueId());
     }
 
     public User createUser(UUID uuid) {
-        User user = userMap.get(uuid);
+        User user = this.userMap.get(uuid);
         if (user == null) {
-            User cachedUser = userCache.getIfPresent(uuid);
+            User cachedUser = this.userCache.getIfPresent(uuid);
             if (cachedUser != null) {
-                userMap.put(uuid, user = cachedUser);
+                this.userMap.put(uuid, user = cachedUser);
                 return user;
             }
-            userMap.put(uuid, user = new User(uuid, plugin.getServer().getPlayer(uuid).getName()));
+            this.userMap.put(uuid, user = new User(uuid, this.plugin.getServer().getPlayer(uuid).getName()));
         }
         return user;
     }
 
     public User createUser(Player player) {
-        return createUser(player.getUniqueId());
+        return this.createUser(player.getUniqueId());
     }
 
     public Set<User> getModifiedUsers() {
-        return userMap.values().stream()
+        return this.userMap.values().stream()
                 .filter(user -> user.isModified() || user.getRank().isModified())
                 .collect(Collectors.toSet());
     }

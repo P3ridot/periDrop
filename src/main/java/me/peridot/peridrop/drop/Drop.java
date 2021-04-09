@@ -42,75 +42,75 @@ public class Drop {
     }
 
     public ItemBuilder getItem() {
-        return item;
+        return this.item;
     }
 
     public Material getMaterial() {
-        return material;
+        return this.material;
     }
 
     public short getDurability() {
-        return durability;
+        return this.durability;
     }
 
     public String getDisplayName() {
-        return displayName;
+        return this.displayName;
     }
 
     public float getChance() {
-        return chance;
+        return this.chance;
     }
 
     public Pair<Integer, Integer> getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public int getMinAmount() {
-        return amount.getKey();
+        return this.amount.getKey();
     }
 
     public int getMaxAmount() {
-        return amount.getValue();
+        return this.amount.getValue();
     }
 
     public Pair<Integer, Integer> getHeight() {
-        return height;
+        return this.height;
     }
 
     public int getMinHeight() {
-        return height.getKey();
+        return this.height.getKey();
     }
 
     public int getMaxHeight() {
-        return height.getValue();
+        return this.height.getValue();
     }
 
     public boolean acceptHeight(int height) {
-        int minHeight = getMinHeight();
-        int maxHeight = getMaxHeight();
+        int minHeight = this.getMinHeight();
+        int maxHeight = this.getMaxHeight();
 
         return height >= minHeight && height <= maxHeight;
     }
 
     public List<Biome> getBiomesList() {
-        return new ArrayList<Biome>(biomesList);
+        return new ArrayList<Biome>(this.biomesList);
     }
 
     private boolean isAllBiomes() {
-        return getBiomesList().isEmpty();
+        return this.getBiomesList().isEmpty();
     }
 
     public boolean acceptBiome(Biome biome) {
-        if (isAllBiomes()) return true;
-        return getBiomesList().contains(biome);
+        if (this.isAllBiomes()) return true;
+        return this.getBiomesList().contains(biome);
     }
 
     public String getBiomesListString() {
         StringBuilder biomes = new StringBuilder();
 
-        if (biomesList.isEmpty()) return PluginConfiguration.biome_any;
+        if (this.biomesList.isEmpty()) return PluginConfiguration.biome_any;
 
-        for (Biome biome : biomesList) {
+        for (Biome biome : this.biomesList) {
             biomes.append(", " + biome.name().toUpperCase());
         }
 
@@ -118,24 +118,24 @@ public class Drop {
     }
 
     public List<Material> getToolsList() {
-        return new ArrayList<Material>(toolsList);
+        return new ArrayList<Material>(this.toolsList);
     }
 
     private boolean isAllTools() {
-        return getToolsList().isEmpty();
+        return this.getToolsList().isEmpty();
     }
 
     public boolean acceptTool(Material tool) {
-        if (isAllTools()) return true;
-        return getToolsList().contains(tool);
+        if (this.isAllTools()) return true;
+        return this.getToolsList().contains(tool);
     }
 
     public String getToolsListString() {
         StringBuilder tools = new StringBuilder();
 
-        if (toolsList.isEmpty()) return PluginConfiguration.tool_any;
+        if (this.toolsList.isEmpty()) return PluginConfiguration.tool_any;
 
-        for (Material material : toolsList) {
+        for (Material material : this.toolsList) {
             tools.append(", " + material.name().toUpperCase());
         }
 
@@ -143,11 +143,11 @@ public class Drop {
     }
 
     public List<FortuneDrop> getFortuneDropsList() {
-        return new ArrayList<>(fortuneDropsList);
+        return new ArrayList<>(this.fortuneDropsList);
     }
 
     public boolean isFortuneAffect() {
-        return !getFortuneDropsList().isEmpty();
+        return !this.getFortuneDropsList().isEmpty();
     }
 
     public FortuneDrop getFortuneDropForTool(ItemStack tool) {
@@ -155,10 +155,10 @@ public class Drop {
 
         int toolFortuneLevel = tool.getItemMeta().getEnchantLevel(Enchantment.LOOT_BONUS_BLOCKS);
 
-        if (isFortuneAffect() && toolFortuneLevel >= 1) {
+        if (this.isFortuneAffect() && toolFortuneLevel >= 1) {
             FortuneDrop fortuneDropReturn = null;
 
-            for (FortuneDrop fortuneDrop : getFortuneDropsList()) {
+            for (FortuneDrop fortuneDrop : this.getFortuneDropsList()) {
                 if (toolFortuneLevel >= fortuneDrop.getFortuneLevel()) {
                     if (fortuneDropReturn == null || fortuneDropReturn.getFortuneLevel() < fortuneDrop.getFortuneLevel()) {
                         fortuneDropReturn = fortuneDrop;
@@ -172,7 +172,7 @@ public class Drop {
     }
 
     public LangMessage getMessage() {
-        return message;
+        return this.message;
     }
 
 }

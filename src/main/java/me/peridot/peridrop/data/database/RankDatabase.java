@@ -20,12 +20,12 @@ public class RankDatabase {
     }
 
     public void loadRanks() {
-        plugin.getRankSystem().clear();
-        databaseManager.initTable();
+        this.plugin.getRankSystem().clear();
+        this.databaseManager.initTable();
 
-        String sql = "SELECT * FROM `" + databaseManager.tableName + "`;";
+        String sql = "SELECT * FROM `" + this.databaseManager.tableName + "`;";
 
-        try (Connection connection = databaseManager.database.getConnection();
+        try (Connection connection = this.databaseManager.database.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             ResultSet result = statement.executeQuery();
@@ -39,7 +39,7 @@ public class RankDatabase {
                 rank.setLevel(level);
                 rank.setXp(xp);
                 rank.setModified(false);
-                plugin.getRankSystem().update(rank);
+                this.plugin.getRankSystem().update(rank);
             }
         } catch (SQLException ex) {
             this.plugin.getLogger().severe("Failed to load rank data!");
@@ -48,15 +48,15 @@ public class RankDatabase {
     }
 
     public void loadRanksAsync() {
-        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, this::loadRanks);
+        this.plugin.getServer().getScheduler().runTaskAsynchronously(this.plugin, this::loadRanks);
     }
 
     public void loadRank(Rank rank) {
-        databaseManager.initTable();
+        this.databaseManager.initTable();
 
-        String sql = "SELECT * FROM `" + databaseManager.tableName + "` WHERE `uuid`=?;";
+        String sql = "SELECT * FROM `" + this.databaseManager.tableName + "` WHERE `uuid`=?;";
 
-        try (Connection connection = databaseManager.database.getConnection();
+        try (Connection connection = this.databaseManager.database.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, rank.getUuid().toString());
@@ -74,7 +74,7 @@ public class RankDatabase {
     }
 
     public void loadRankAsync(Rank rank) {
-        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> loadRank(rank));
+        this.plugin.getServer().getScheduler().runTaskAsynchronously(this.plugin, () -> this.loadRank(rank));
     }
 
 }

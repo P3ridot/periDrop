@@ -30,10 +30,10 @@ public class DropInventory implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContent content) {
-        User user = plugin.getUserCache().createUser(player);
-        PluginConfiguration config = plugin.getPluginConfiguration();
-        ConfigurationFile inventoriesConfig = plugin.getInventoriesConfiguration();
-        DropsManager dropsManager = plugin.getDropsManager();
+        User user = this.plugin.getUserCache().createUser(player);
+        PluginConfiguration config = this.plugin.getPluginConfiguration();
+        ConfigurationFile inventoriesConfig = this.plugin.getInventoriesConfiguration();
+        DropsManager dropsManager = this.plugin.getDropsManager();
 
         content.clear();
         for (Drop drop : dropsManager.getDropsList()) {
@@ -61,9 +61,9 @@ public class DropInventory implements InventoryProvider {
                                 rows = 6;
                             }
                             CustomInventory fortuneInventory = CustomInventory.builder()
-                                    .plugin(plugin)
-                                    .manager(plugin.getPeriAPI().getInventoryManager())
-                                    .provider(new FortuneInventory(plugin, rows, drop))
+                                    .plugin(this.plugin)
+                                    .manager(this.plugin.getPeriAPI().getInventoryManager())
+                                    .provider(new FortuneInventory(this.plugin, rows, drop))
                                     .rows(rows)
                                     .title(inventoriesConfig.getColoredString("fortune.title"))
                                     .updateDelay(-1)
@@ -76,8 +76,8 @@ public class DropInventory implements InventoryProvider {
                     .update(true)
                     .build());
         }
-        content.fillRow(rows, InventoryItem.builder().item(inventoriesConfig.getItemBuilder("drop.buttons.background").clone()).build());
-        content.setItem(rows, 4, InventoryItem.builder()
+        content.fillRow(this.rows, InventoryItem.builder().item(inventoriesConfig.getItemBuilder("drop.buttons.background").clone()).build());
+        content.setItem(this.rows, 4, InventoryItem.builder()
                 .item(inventoriesConfig.getItemBuilder("drop.buttons.all_enable").clone())
                 .consumer(event -> {
                     for (Drop drop : dropsManager.getDropsList()) {
@@ -86,7 +86,7 @@ public class DropInventory implements InventoryProvider {
                 })
                 .update(true)
                 .build());
-        content.setItem(rows, 6, InventoryItem.builder()
+        content.setItem(this.rows, 6, InventoryItem.builder()
                 .item(inventoriesConfig.getItemBuilder("drop.buttons.all_disable").clone())
                 .consumer(event -> {
                     for (Drop drop : dropsManager.getDropsList()) {
@@ -95,9 +95,9 @@ public class DropInventory implements InventoryProvider {
                 })
                 .update(true)
                 .build());
-        content.setItem(rows, 9, InventoryItem.builder()
+        content.setItem(this.rows, 9, InventoryItem.builder()
                 .item(inventoriesConfig.getItemBuilder("drop.buttons.back").clone())
-                .consumer(event -> plugin.getInventoryManager().getMenuInventory().open(player))
+                .consumer(event -> this.plugin.getInventoryManager().getMenuInventory().open(player))
                 .build());
     }
 

@@ -38,12 +38,12 @@ public class BlockBreakListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        PluginConfiguration config = plugin.getPluginConfiguration();
-        DropsManager dropsManager = plugin.getDropsManager();
-        LangAPI lang = plugin.getLang();
+        PluginConfiguration config = this.plugin.getPluginConfiguration();
+        DropsManager dropsManager = this.plugin.getDropsManager();
+        LangAPI lang = this.plugin.getLang();
 
         Player player = event.getPlayer();
-        User user = plugin.getUserCache().createUser(player);
+        User user = this.plugin.getUserCache().createUser(player);
         Rank rank = user.getRank();
         ItemStack tool = player.getItemInHand();
         Block block = event.getBlock();
@@ -78,22 +78,22 @@ public class BlockBreakListener implements Listener {
         if (user.isSettingDisabled(SettingsType.COBBLESTONE_DROP)) {
             event.setCancelled(true);
             block.setType(Material.AIR);
-            recalculateDurability(player, tool);
+            this.recalculateDurability(player, tool);
         }
 
         rank.changeXp(ThreadLocalRandom.current().nextInt(config.getInt("ranking.drop-exp.min"), config.getInt("ranking.drop-exp.max") + 1));
-        if (rank.getXp() >= requiredExp(rank.getLevel() + 1, rank)) {
-            rank.changeXp(-requiredExp(rank.getLevel() + 1, rank));
+        if (rank.getXp() >= this.requiredExp(rank.getLevel() + 1, rank)) {
+            rank.changeXp(-this.requiredExp(rank.getLevel() + 1, rank));
             if (rank.getXp() < 0) rank.setXp(0);
             rank.changeLevel(1);
             if (!user.isSettingDisabled(SettingsType.LEVEL_UP_NOTIFICATION)) {
                 lang.sendMessage(player, "ranking.level-up", new Replacement("{OLD-LEVEL}", rank.getLevel() - 1),
                         new Replacement("{NEW-LEVEL}", rank.getLevel()),
                         new Replacement("{NEXT-LEVEL}", rank.getLevel() + 1),
-                        new Replacement("{EXP-TO-NEXT-LEVEL}", requiredExp(rank.getLevel() + 1, rank)));
+                        new Replacement("{EXP-TO-NEXT-LEVEL}", this.requiredExp(rank.getLevel() + 1, rank)));
             }
-            plugin.getDatabaseManager().getUserDatabase().saveUser(user);
-            plugin.getRankSystem().update(rank);
+            this.plugin.getDatabaseManager().getUserDatabase().saveUser(user);
+            this.plugin.getRankSystem().update(rank);
         }
 
         if (dropsManager.getDropsList().isEmpty()) return;
@@ -137,7 +137,7 @@ public class BlockBreakListener implements Listener {
                                 new Replacement("{DATE}", PluginConfiguration.dateFormat.format(LocalDateTime.now())))
                         .build();
 
-                blockLocation.getWorld().dropItemNaturally(center(blockLocation), dropItem);
+                blockLocation.getWorld().dropItemNaturally(this.center(blockLocation), dropItem);
 
                 if (!user.isSettingDisabled(SettingsType.DROP_NOTIFICATION)) {
                     drop.getMessage().send(player);
@@ -147,7 +147,7 @@ public class BlockBreakListener implements Listener {
     }
 
     private int requiredExp(int level, Rank rank) {
-        Expression expression = new Expression(plugin.getPluginConfiguration().getString("ranking.level-up.required-exp"));
+        Expression expression = new Expression(this.plugin.getPluginConfiguration().getString("ranking.level-up.required-exp"));
 
         expression.with("level", new BigDecimal(level));
         expression.with("player_position", new BigDecimal(rank.getPosition()));

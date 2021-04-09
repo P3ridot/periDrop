@@ -24,13 +24,13 @@ public class UserDatabase {
     }
 
     public void loadUser(User user) {
-        databaseManager.initTable();
+        this.databaseManager.initTable();
 
-        String sql = "SELECT * FROM `" + databaseManager.tableName + "` WHERE `uuid`=?;";
+        String sql = "SELECT * FROM `" + this.databaseManager.tableName + "` WHERE `uuid`=?;";
 
         Rank rank = user.getRank();
 
-        try (Connection connection = databaseManager.database.getConnection();
+        try (Connection connection = this.databaseManager.database.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, user.getUuid().toString());
@@ -57,22 +57,22 @@ public class UserDatabase {
     }
 
     public void loadUserAsync(User user) {
-        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> loadUser(user));
+        this.plugin.getServer().getScheduler().runTaskAsynchronously(this.plugin, () -> this.loadUser(user));
     }
 
     public void saveUser(User user) {
-        databaseManager.initTable();
+        this.databaseManager.initTable();
 
         String sql = "";
-        if (databaseManager.useMysql) {
-            sql = "INSERT INTO `" + databaseManager.tableName + "` (`uuid`, `name`, `level`, `xp`, `disabled_settings`) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `level`=?, `xp`=?, `disabled_settings`=?;";
+        if (this.databaseManager.useMysql) {
+            sql = "INSERT INTO `" + this.databaseManager.tableName + "` (`uuid`, `name`, `level`, `xp`, `disabled_settings`) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `level`=?, `xp`=?, `disabled_settings`=?;";
         } else {
-            sql = "INSERT OR REPLACE INTO `" + databaseManager.tableName + "` (`uuid`, `name`, `level`, `xp`, `disabled_settings`) VALUES (?, ?, ?, ?, ?);";
+            sql = "INSERT OR REPLACE INTO `" + this.databaseManager.tableName + "` (`uuid`, `name`, `level`, `xp`, `disabled_settings`) VALUES (?, ?, ?, ?, ?);";
         }
 
         Rank rank = user.getRank();
 
-        try (Connection connection = databaseManager.database.getConnection();
+        try (Connection connection = this.databaseManager.database.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             StringBuilder disabledSettings = new StringBuilder();
@@ -86,7 +86,7 @@ public class UserDatabase {
             statement.setInt(4, rank.getXp());
             statement.setString(5, disabledSettings.toString().replaceFirst(";", ""));
 
-            if (databaseManager.useMysql) {
+            if (this.databaseManager.useMysql) {
                 statement.setInt(6, rank.getLevel());
                 statement.setInt(7, rank.getXp());
                 statement.setString(8, disabledSettings.toString().replaceFirst(";", ""));
@@ -103,20 +103,20 @@ public class UserDatabase {
     }
 
     public void saveUserAsync(User user) {
-        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> saveUser(user));
+        this.plugin.getServer().getScheduler().runTaskAsynchronously(this.plugin, () -> this.saveUser(user));
     }
 
     public void saveUsers(Set<User> users) {
-        databaseManager.initTable();
+        this.databaseManager.initTable();
 
         String sql = "";
-        if (databaseManager.useMysql) {
-            sql = "INSERT INTO `" + databaseManager.tableName + "` (`uuid`, `name`, `level`, `xp`, `disabled_settings`) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `level`=?, `xp`=?, `disabled_settings`=?;";
+        if (this.databaseManager.useMysql) {
+            sql = "INSERT INTO `" + this.databaseManager.tableName + "` (`uuid`, `name`, `level`, `xp`, `disabled_settings`) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `level`=?, `xp`=?, `disabled_settings`=?;";
         } else {
-            sql = "INSERT OR REPLACE INTO `" + databaseManager.tableName + "` (`uuid`, `name`, `level`, `xp`, `disabled_settings`) VALUES (?, ?, ?, ?, ?);";
+            sql = "INSERT OR REPLACE INTO `" + this.databaseManager.tableName + "` (`uuid`, `name`, `level`, `xp`, `disabled_settings`) VALUES (?, ?, ?, ?, ?);";
         }
 
-        try (Connection connection = databaseManager.database.getConnection();
+        try (Connection connection = this.databaseManager.database.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             int i = 0;
@@ -132,7 +132,7 @@ public class UserDatabase {
                 statement.setInt(3, rank.getLevel());
                 statement.setInt(4, rank.getXp());
                 statement.setString(5, disabledSettings.toString().replaceFirst(";", ""));
-                if (databaseManager.useMysql) {
+                if (this.databaseManager.useMysql) {
                     statement.setInt(6, rank.getLevel());
                     statement.setInt(7, rank.getXp());
                     statement.setString(8, disabledSettings.toString().replaceFirst(";", ""));
@@ -155,7 +155,7 @@ public class UserDatabase {
     }
 
     public void saveUsersAsync(Set<User> users) {
-        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> saveUsers(users));
+        this.plugin.getServer().getScheduler().runTaskAsynchronously(this.plugin, () -> this.saveUsers(users));
     }
 
 }

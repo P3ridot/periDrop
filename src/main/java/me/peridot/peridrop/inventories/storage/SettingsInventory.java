@@ -22,10 +22,10 @@ public class SettingsInventory implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContent content) {
-        PluginConfiguration config = plugin.getPluginConfiguration();
-        ConfigurationFile inventoriesConfig = plugin.getInventoriesConfiguration();
+        PluginConfiguration config = this.plugin.getPluginConfiguration();
+        ConfigurationFile inventoriesConfig = this.plugin.getInventoriesConfiguration();
 
-        User user = plugin.getUserCache().createUser(player);
+        User user = this.plugin.getUserCache().createUser(player);
 
         content.clear();
         for (SettingsType type : SettingsType.values()) {
@@ -43,7 +43,7 @@ public class SettingsInventory implements InventoryProvider {
         content.fillRow(2, InventoryItem.builder().item(inventoriesConfig.getItemBuilder("settings.buttons.background").clone()).build());
         content.setItem(2, 5, InventoryItem.builder()
                 .item(inventoriesConfig.getItemBuilder("settings.buttons.back").clone())
-                .consumer(event -> plugin.getInventoryManager().getMenuInventory().open(player))
+                .consumer(event -> this.plugin.getInventoryManager().getMenuInventory().open(player))
                 .build());
     }
 

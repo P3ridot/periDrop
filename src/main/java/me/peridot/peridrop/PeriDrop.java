@@ -26,6 +26,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PeriDrop extends JavaPlugin {
 
+    private static PeriDrop INSTANCE;
     private PeriAPI periAPI;
     private ConfigurationManager configurationManager;
     private DatabaseManager databaseManager;
@@ -33,30 +34,28 @@ public class PeriDrop extends JavaPlugin {
     private RankSystem rankSystem;
     private InventoryManager inventoryManager;
 
-    private static PeriDrop INSTANCE;
-
     @Override
     public void onEnable() {
-        periAPI = new PeriAPI(this);
-        periAPI.init();
+        this.periAPI = new PeriAPI(this);
+        this.periAPI.init();
 
-        configurationManager = new ConfigurationManager(this);
+        this.configurationManager = new ConfigurationManager(this);
         try {
-            configurationManager.reloadConfigurations();
+            this.configurationManager.reloadConfigurations();
         } catch (InvalidConfigurationException ex) {
             ex.printStackTrace();
-            getServer().getPluginManager().disablePlugin(this);
+            this.getServer().getPluginManager().disablePlugin(this);
         }
 
-        databaseManager = new DatabaseManager(this);
-        databaseManager.init();
+        this.databaseManager = new DatabaseManager(this);
+        this.databaseManager.init();
 
-        userCache = new UserCache(this);
-        rankSystem = new RankSystem();
+        this.userCache = new UserCache(this);
+        this.rankSystem = new RankSystem();
 
-        initInventoryManager();
+        this.initInventoryManager();
 
-        PluginManager pluginManager = getServer().getPluginManager();
+        PluginManager pluginManager = this.getServer().getPluginManager();
         pluginManager.registerEvents(new AsyncPlayerChatListener(this), this);
         pluginManager.registerEvents(new BlockBreakListener(this), this);
         pluginManager.registerEvents(new PlayerJoinListener(this), this);
@@ -73,34 +72,34 @@ public class PeriDrop extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        for (Player player : getServer().getOnlinePlayers()) {
-            User user = userCache.createUser(player);
-            getDatabaseManager().getUserDatabase().saveUser(user);
+        for (Player player : this.getServer().getOnlinePlayers()) {
+            User user = this.userCache.createUser(player);
+            this.getDatabaseManager().getUserDatabase().saveUser(user);
         }
     }
 
     public PeriAPI getPeriAPI() {
-        return periAPI;
+        return this.periAPI;
     }
 
     public ConfigurationManager getConfigurationManager() {
-        return configurationManager;
+        return this.configurationManager;
     }
 
     public DatabaseManager getDatabaseManager() {
-        return databaseManager;
+        return this.databaseManager;
     }
 
     public UserCache getUserCache() {
-        return userCache;
+        return this.userCache;
     }
 
     public RankSystem getRankSystem() {
-        return rankSystem;
+        return this.rankSystem;
     }
 
     public InventoryManager getInventoryManager() {
-        return inventoryManager;
+        return this.inventoryManager;
     }
 
     public LangAPI getLang() {

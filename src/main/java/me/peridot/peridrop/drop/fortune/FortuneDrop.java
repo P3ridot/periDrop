@@ -15,23 +15,23 @@ public class FortuneDrop {
     }
 
     public int getFortuneLevel() {
-        return fortuneLevel;
+        return this.fortuneLevel;
     }
 
     public float getChance() {
-        return chance;
+        return this.chance;
     }
 
     public Pair<Integer, Integer> getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public int getMinAmount() {
-        return amount.getKey();
+        return this.amount.getKey();
     }
 
     public int getMaxAmount() {
-        return amount.getValue();
+        return this.amount.getValue();
     }
 
 }
